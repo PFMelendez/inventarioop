@@ -3,9 +3,6 @@
     "jest": true,
     "browser": true
   },
-  "plugins": [
-    "prettier"
-  ],
   "extends": [
     "react-app",
     "eslint:recommended"
