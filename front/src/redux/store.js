@@ -1,9 +1,9 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import createSagaMiddleWare from 'redux-saga';
 import { createBrowserHistory as createHistory } from 'history';
-import { connectRouter, routerMiddleware } from 'connected-react-router';
+import { routerMiddleware } from 'connected-react-router';
 import logger from 'redux-logger';
-import rootReducer from '../containers/reducer';
+import createReducer from '../containers/reducer';
 import rootSaga from '../containers/sagas';
 
 const history = createHistory();
@@ -14,7 +14,7 @@ const middlewares = [logger, sagaMiddleware, routeMiddleware];
 const appliedMiddlewares = applyMiddleware(...middlewares);
 
 const store = createStore(
-  connectRouter(history)(rootReducer),
+  createReducer(history),
   compose(appliedMiddlewares)
 );
 
