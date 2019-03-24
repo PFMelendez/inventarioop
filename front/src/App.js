@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Route, Switch, Redirect } from 'react-router';
-import Home from './containers/Home';
+import Login from './containers/Home';
 
 class App extends Component {
   render() {
@@ -9,7 +9,7 @@ class App extends Component {
     return (
       <div>
         <Switch location={location}>
-          <Route exact path="/" component={Home} />
+          <Route exact path="/" component={Login} />
           <Redirect to="/" />
         </Switch>
       </div>
