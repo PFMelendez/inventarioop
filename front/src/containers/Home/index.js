@@ -1,17 +1,38 @@
 import React, { Component } from 'react';
-import FormApp from '../../components/formapp';
-import 'bootstrap/dist/css/bootstrap.css';
+import FormApp from '../../components/FormularioBusqueda';
 import './styles.css';
 
+class Login extends Component {
+  constructor(props) {
+    super(props);
 
-class App extends Component {
+    this.state = {
+      email: "",
+      password: ""
+    };
+  }
+
+  validateForm() {
+    return this.state.email.length > 0 && this.state.password.length > 0;
+  }
+
+  handleChange = event => {
+    this.setState({
+      [event.target.id]: event.target.value
+    });
+  }
+
+  handleSubmit = event => {
+    event.preventDefault();
+  }
+
   render() {
     return (
       <div className="App">
-        <FormApp/>
+        <FormApp />
       </div>
     );
   }
 }
 
-export default App;
+export default Login;
