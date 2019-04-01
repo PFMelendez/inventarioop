@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Route, Switch, Redirect } from 'react-router';
-import Navigation from './components/navegation';
+import Navigation from './components/Layout/navegation';
 import Home from './containers/Home';
 import Login from './containers/Login';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -13,8 +13,8 @@ class App extends Component {
       <div>
         <Navigation />
         <Switch location={location}>
-          <Route exact path="/" component={Home} />
           <Route exact path="/login" component={Login} />
+          <Route exact path="/" component={Home} />
           <Redirect to="/" />
         </Switch>
       </div>
