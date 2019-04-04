@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import FormApp from '../../components/FormularioBusqueda';
 import './styles.css';
+//import TablaBusquda from '../../components/Tabla/TablaBusquedas';
+import Crearusuario from '../../components/Usuarios/Crearusuario';
 
 class Login extends Component {
   constructor(props) {
@@ -29,7 +30,7 @@ class Login extends Component {
   render() {
     return (
       <div className="App">
-        <FormApp />
+        <Crearusuario/> 
       </div>
     );
   }
