@@ -65,6 +65,23 @@ class FormularioCrearObejto extends Component{
         </div>
         <div class =" row pt-3">
           <div class="col-3">
+            <label htmlFor="option">Seleccione las etiquetas que definan al nuvo objeto :</label>
+          </div>
+          <div className="col-6" >
+            <select className="form-control" id="opcion" name="option" >
+              <option value="">Tags</option>
+              <option value="">rojo</option>
+              <option value="">pantalla</option>
+              <option value="">estampado</option>
+            </select>
+            <label htmlFor="option">Escriba la etiqueta nueva :</label>
+            <textarea className="form-control" id="opcion" name="option"  >
+            </textarea>
+            <button>  <b>Add Etiqueta</b> </button>
+          </div>
+        </div>
+        <div class =" row pt-3">
+          <div class="col-3">
             <label htmlFor="option">Lugar de hallazgo:</label>
           </div>
           <div className="col-6" >

@@ -1,17 +1,14 @@
+import React, {Component} from 'react';
+
+
+
 class FormularioBuscarObjetos extends Component{
-    constructor(args) {
-      super(args);
-      this.state = {
-        tag: '',
-        option: '',
-        display: false,
-      };
-    }
+
     render() {
       return (
         <div>
                   <div class =" row pt-3">
-          <div class="col-3">
+          <div class ="col-3">
             <label htmlFor="option">Seleccione tags para la busqueda :</label>
           </div>
           <div className="col-6" >
