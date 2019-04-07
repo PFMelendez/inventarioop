@@ -9,21 +9,22 @@ import 'bootstrap/dist/css/bootstrap.css';
 
 class App extends Component {
   render() {
-    const { location } = this.props;
-    return (
+    const { location, loggedIn } = this.props;
+
+    return loggedIn ? (
       <div>
         <Navigation />
         <Switch location={location}>
-          <Route exact path="/login" component={Login} />
+          {/* <Route exact path="/login" component={Login} /> */}
           <Route exact path="/admin/tags" component={Tags} />
           <Route exact path="/" component={Home} />
           <Redirect to="/" />
         </Switch>
       </div>
-    );
+    ) : <Login />;
   }
 }
 
-const mapStateToProps = ({ router }) => ({ location: router.location });
+const mapStateToProps = ({ router, login: { status } }) => ({ location: router.location, loggedIn: status });
 
 export default connect(mapStateToProps)(App);
