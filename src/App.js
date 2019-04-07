@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Route, Switch, Redirect } from 'react-router';
 import Navigation from './components/Layout/navegation';
 import Home from './containers/Home';
-import Login from './containers/Login';
+//import Login from './containers/Login';
 import Tags from './containers/Admin';
 import Objetos from './components/Objetos/FormularioCrearObjeto';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -23,7 +23,7 @@ class App extends Component {
           <Redirect to="/" />
         </Switch>
       </div>
-    ) : <Login />;
+    ) : <Objetos tags={[]} categorias={[]} subcategorias={[]}/>;
   }
 }
 

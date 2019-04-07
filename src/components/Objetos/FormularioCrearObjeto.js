@@ -4,7 +4,13 @@ class FormularioCrearObejto extends Component{
   constructor(args) {
     super(args);
     this.state = {
-      tag: '',
+      usuario: '',
+      sub_categoria: '',
+      estado:'',
+      tags: '',
+      add_tag:'',
+      lugar_hallasgo:'',
+      notas:'',
       option: '',
       display: false,
     };
@@ -22,7 +28,7 @@ class FormularioCrearObejto extends Component{
             <label htmlFor="option">¿Quien registra la entrada del objeto? :</label>
           </div>
           <div className="col-6" >
-            <select className="form-control" id="opcion" name="option" >
+            <select className="form-control" id="opcion" name="usuario" >
               <option value="">Nombre</option>
               <option value="">Raul Andrade</option>
               <option value="">Raul Campos</option>
@@ -38,7 +44,7 @@ class FormularioCrearObejto extends Component{
             <label htmlFor="option">¿Que tipo de objeto fue encontrado? :</label>
           </div>
           <div className="col-6" >
-            <select className="form-control" id="opcion" name="option"  >
+            <select className="form-control" id="opcion" name="sub_categoria"  >
               <option value="">Seleccione el tipo de objeto</option>
               <option value="">Telefono</option>
               <option value="">Sueter</option>
@@ -55,7 +61,7 @@ class FormularioCrearObejto extends Component{
             <label htmlFor="option">Estado del objeto :</label>
           </div>
           <div className="col-6" >
-            <select className="form-control" id="opcion" name="option" >
+            <select className="form-control" id="opcion" name="estado" >
               <option value="">Seleccione estado</option>
               <option value="">Bueno</option>
               <option value="">Regular</option>
@@ -68,14 +74,14 @@ class FormularioCrearObejto extends Component{
             <label htmlFor="option">Seleccione las etiquetas que definan al nuvo objeto :</label>
           </div>
           <div className="col-6" >
-            <select className="form-control" id="opcion" name="option" >
+            <select className="form-control" id="opcion" name="tags" >
               <option value="">Tags</option>
               <option value="">rojo</option>
               <option value="">pantalla</option>
               <option value="">estampado</option>
             </select>
             <label htmlFor="option">Escriba la etiqueta nueva :</label>
-            <textarea className="form-control" id="opcion" name="option"  >
+            <textarea className="form-control" id="opcion" name="add_tag"  >
             </textarea>
             <button>  <b>Add Etiqueta</b> </button>
           </div>
@@ -85,7 +91,7 @@ class FormularioCrearObejto extends Component{
             <label htmlFor="option">Lugar de hallazgo:</label>
           </div>
           <div className="col-6" >
-            <textarea className="form-control" id="opcion" name="option"  >
+            <textarea className="form-control" id="opcion" name="lugar_hallasgo"  >
             </textarea>
           </div>
         </div>
@@ -94,7 +100,7 @@ class FormularioCrearObejto extends Component{
             <label htmlFor="option">Notas:</label>
           </div>
           <div className="col-6" >
-            <textarea className="form-control" id="opcion" name="option" >
+            <textarea className="form-control" id="opcion" name="notas" >
             </textarea>
           </div>
         </div> 
