@@ -23,7 +23,7 @@ class App extends Component {
           <Redirect to="/" />
         </Switch>
       </div>
-    ) : <Objetos tags={[]} categorias={[]} subcategorias={[]}/>;
+    ) : <Objetos tags={[]} categorias={[]} subcategorias={[]} usuarios={[]}/>;
   }
 }
 

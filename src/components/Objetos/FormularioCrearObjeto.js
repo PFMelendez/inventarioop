@@ -32,12 +32,8 @@ class FormularioCrearObejto extends Component{
             <label htmlFor="option">¿Quien registra la entrada del objeto? :</label>
           </div>
           <div className="col-6" >
-            <select onChange={this.handleChange} className="form-control" id="opcion" name="usuario" >
-              <option value="">Nombre</option>
-              <option value="">Raul Andrade</option>
-              <option value="">Raul Campos</option>
-              <option value="">Daniel Campos</option>
-              <option value="">Pablo Melendez</option>
+            <select onChange={this.handleChange} className="form-control" id="opcion" name="usuario"  >
+            {this.props.usuarios.map()}
             </select>
           </div>
         </div>
@@ -49,11 +45,7 @@ class FormularioCrearObejto extends Component{
           </div>
           <div className="col-6" >
             <select className="form-control" id="opcion" name="sub_categoria" onChange={this.handleChange}  >
-              <option value="">Seleccione el tipo de objeto</option>
-              <option value="">Telefono</option>
-              <option value="">Sueter</option>
-              <option value="">Cable</option>
-              <option value="">lapiz</option>
+            {this.props.usuarios.map()}
             </select>
             <button>  <b>Add Object</b> </button> 
           </div>
@@ -66,10 +58,7 @@ class FormularioCrearObejto extends Component{
           </div>
           <div className="col-6" >
             <select className="form-control" id="opcion" name="estado" onChange={this.handleChange} >
-              <option value="">Seleccione estado</option>
-              <option value="">Bueno</option>
-              <option value="">Regular</option>
-              <option value="">Malo</option>
+            {this.props.map()}
             </select>
           </div>
         </div>
@@ -79,10 +68,7 @@ class FormularioCrearObejto extends Component{
           </div>
           <div className="col-6" >
             <select className="form-control" id="opcion" name="tags" onChange={this.handleChange} >
-              <option value="">Tags</option>
-              <option value="">rojo</option>
-              <option value="">pantalla</option>
-              <option value="">estampado</option>
+            {this.props.usuarios.map()}
             </select>
             <label htmlFor="option">Escriba la etiqueta nueva :</label>
             <textarea className="form-control" id="opcion" name="add_tag" onChange={this.handleChange} >
