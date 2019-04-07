@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
 
-class Navigation extends Component{
+class Navigation extends Component {
   render() {
     return (
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -14,11 +14,13 @@ class Navigation extends Component{
             <li className="nav-item">
               <a className="nav-link" href="#">Busquedas</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../../components/Objetos/FormularioBuscarObjetos">Objetos</a>
+            </li>
           </ul>
         </div>
       </nav>
     );
   }
 }
-
 export default Navigation;
