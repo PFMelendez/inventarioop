@@ -33,7 +33,7 @@ class FormularioCrearObejto extends Component{
           </div>
           <div className="col-6" >
             <select onChange={this.handleChange} className="form-control" id="opcion" name="usuario"  >
-            {this.props.usuarios.map()}
+            {this.props.usuarios.map(item => <option key={`id_usuario-${item.id_usuario}`} value={item.id_usuario}>{item.nombre}</option>)}
             </select>
           </div>
         </div>
@@ -45,7 +45,7 @@ class FormularioCrearObejto extends Component{
           </div>
           <div className="col-6" >
             <select className="form-control" id="opcion" name="sub_categoria" onChange={this.handleChange}  >
-            {this.props.usuarios.map()}
+            {this.props.usuarios.map(item => <option key={`id_sub_categoria-${item.id_sub_categoria}`} value={item.id_xxxx}>{item.descripcion}</option>)}
             </select>
             <button>  <b>Add Object</b> </button> 
           </div>
@@ -58,7 +58,7 @@ class FormularioCrearObejto extends Component{
           </div>
           <div className="col-6" >
             <select className="form-control" id="opcion" name="estado" onChange={this.handleChange} >
-            {this.props.map()}
+            {this.props.map(item => <option key={`id_estado-${item.id_estado}`} value={item.id_estado}>{item.descripcion}</option>)}
             </select>
           </div>
         </div>
@@ -68,7 +68,7 @@ class FormularioCrearObejto extends Component{
           </div>
           <div className="col-6" >
             <select className="form-control" id="opcion" name="tags" onChange={this.handleChange} >
-            {this.props.usuarios.map()}
+            {this.props.usuarios.map(item => <option key={`xxxx-${item.id_tag}`} value={item.id_tag}>{item.nombre}</option>)}
             </select>
             <label htmlFor="option">Escriba la etiqueta nueva :</label>
             <textarea className="form-control" id="opcion" name="add_tag" onChange={this.handleChange} >
