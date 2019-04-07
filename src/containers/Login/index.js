@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
-import { Button, FormGroup, FormControl, FormLabel } from "react-bootstrap";
+
+import { Button, Form} from "react-bootstrap";
+import Image from 'react-bootstrap/Image'
+
+import '../../index.css';
 
 class Login extends Component {
   constructor(props) {
@@ -28,33 +32,29 @@ class Login extends Component {
   render() {
     return (
       <div className="Login">
-        <form onSubmit={this.handleSubmit}>
-          <FormGroup controlId="email" bssize="large">
-            <FormLabel>Email</FormLabel>
-            <FormControl
-              autoFocus
-              type="email"
-              value={this.state.email}
-              onChange={this.handleChange}
-            />
-          </FormGroup>
-          <FormGroup controlId="password" bssize="large">
-            <FormLabel>Password</FormLabel>
-            <FormControl
-              value={this.state.password}
-              onChange={this.handleChange}
-              type="password"
-            />
-          </FormGroup>
-          <Button
-            block
-            bssize="large"
-            disabled={!this.validateForm()}
-            type="submit"
-          >
-            Login
-          </Button>
-        </form>
+        <Image className="logo" src="https://universidadesdemexico.mx/logos/original/logo-universidad-del-caribe.png" fluid />
+        <Form>
+          <div className="jumbotron box">
+              <h4 className="display-4">Inventario OP</h4>
+              <Form.Group controlId="formBasicEmail">
+                <Form.Label>Correo Electronico</Form.Label>
+                <Form.Control type="email" placeholder="Enter email" />
+              </Form.Group>
+
+              <Form.Group controlId="formBasicPassword">
+                <Form.Label>Contraseña</Form.Label>
+                <Form.Control type="password" placeholder="Password" />
+              </Form.Group>
+
+              <Form.Group controlId="formBasicChecbox">
+                <Form.Check type="checkbox" label="Mantener iniciada la sesión" />
+              </Form.Group>
+
+              <Button variant="primary" type="submit">
+                Ingresar
+              </Button>
+          </div>
+        </Form>
       </div>
     )
   }
