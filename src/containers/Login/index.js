@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { Button, FormGroup, FormControl, FormLabel } from "react-bootstrap";
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import actions from './actions';
 
 class Login extends Component {
   constructor(props) {
@@ -11,7 +14,7 @@ class Login extends Component {
     };
   }
 
-  validateForm() {
+  validateForm = () => {
     return this.state.email.length > 0 && this.state.password.length > 0;
   }
 
@@ -23,6 +26,11 @@ class Login extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
+    const { triggerLogin } = this.props;
+    triggerLogin({
+      user: this.state.email,
+      contrasena: this.state.password
+    })
   }
 
   render() {
@@ -60,4 +68,9 @@ class Login extends Component {
   }
 }
 
-export default Login;
+const mapDispatchToProps = dispatch => {
+  const { triggerLogin } = actions;
+  return bindActionCreators({ triggerLogin }, dispatch);
+}
+
+export default connect(null, mapDispatchToProps)(Login);
