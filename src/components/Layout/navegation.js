@@ -14,11 +14,13 @@ class Navigation extends Component{
             <li class="nav-item">
               <a class="nav-link" href="../../components/Usuarios/Crearusuario">Busquedas</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../../components/Objetos/FormularioBuscarObjetos">Objetos</a>
+            </li>
           </ul>
         </div>  
       </nav>
     );
   }
 }
-
 export default Navigation;
