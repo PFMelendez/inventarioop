@@ -7,13 +7,17 @@ class FormularioCrearObejto extends Component{
       usuario: '',
       sub_categoria: '',
       estado:'',
-      tags: '',
-      add_tag:'',
+      tags: [],
+      add_tag:[],
       lugar_hallasgo:'',
       notas:'',
-      option: '',
-      display: false,
+      new_tag: ''
     };
+  }
+  handleChange = event => {
+    this.setState({
+      [event.target.name]: event.target.value
+    });
   }
   render() {
     return (
@@ -28,7 +32,7 @@ class FormularioCrearObejto extends Component{
             <label htmlFor="option">¿Quien registra la entrada del objeto? :</label>
           </div>
           <div className="col-6" >
-            <select className="form-control" id="opcion" name="usuario" >
+            <select onChange={this.handleChange} className="form-control" id="opcion" name="usuario" >
               <option value="">Nombre</option>
               <option value="">Raul Andrade</option>
               <option value="">Raul Campos</option>
@@ -44,7 +48,7 @@ class FormularioCrearObejto extends Component{
             <label htmlFor="option">¿Que tipo de objeto fue encontrado? :</label>
           </div>
           <div className="col-6" >
-            <select className="form-control" id="opcion" name="sub_categoria"  >
+            <select className="form-control" id="opcion" name="sub_categoria" onChange={this.handleChange}  >
               <option value="">Seleccione el tipo de objeto</option>
               <option value="">Telefono</option>
               <option value="">Sueter</option>
@@ -61,7 +65,7 @@ class FormularioCrearObejto extends Component{
             <label htmlFor="option">Estado del objeto :</label>
           </div>
           <div className="col-6" >
-            <select className="form-control" id="opcion" name="estado" >
+            <select className="form-control" id="opcion" name="estado" onChange={this.handleChange} >
               <option value="">Seleccione estado</option>
               <option value="">Bueno</option>
               <option value="">Regular</option>
@@ -74,14 +78,14 @@ class FormularioCrearObejto extends Component{
             <label htmlFor="option">Seleccione las etiquetas que definan al nuvo objeto :</label>
           </div>
           <div className="col-6" >
-            <select className="form-control" id="opcion" name="tags" >
+            <select className="form-control" id="opcion" name="tags" onChange={this.handleChange} >
               <option value="">Tags</option>
               <option value="">rojo</option>
               <option value="">pantalla</option>
               <option value="">estampado</option>
             </select>
             <label htmlFor="option">Escriba la etiqueta nueva :</label>
-            <textarea className="form-control" id="opcion" name="add_tag"  >
+            <textarea className="form-control" id="opcion" name="add_tag" onChange={this.handleChange} >
             </textarea>
             <button>  <b>Add Etiqueta</b> </button>
           </div>
@@ -91,7 +95,7 @@ class FormularioCrearObejto extends Component{
             <label htmlFor="option">Lugar de hallazgo:</label>
           </div>
           <div className="col-6" >
-            <textarea className="form-control" id="opcion" name="lugar_hallasgo"  >
+            <textarea className="form-control" id="opcion" name="lugar_hallasgo" onChange={this.handleChange} >
             </textarea>
           </div>
         </div>
@@ -100,10 +104,14 @@ class FormularioCrearObejto extends Component{
             <label htmlFor="option">Notas:</label>
           </div>
           <div className="col-6" >
-            <textarea className="form-control" id="opcion" name="notas" >
+            <textarea className="form-control" id="opcion" name="notas" onChange={this.handleChange}>
             </textarea>
           </div>
-        </div> 
+        </div>
+        <div className="col-6" >
+            <label htmlFor="option">Si el formulario esta listo clik en:  </label>
+            <button>  <b>Enviar Formulario</b> </button>
+          </div> 
       </div>
     );
   }
