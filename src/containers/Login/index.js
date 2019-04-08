@@ -21,8 +21,9 @@ class Login extends Component {
   }
 
   handleChange = event => {
+    console.log(event)
     this.setState({
-      [event.target.id]: event.target.value
+      [event.target.name]: event.target.value
     });
   }
 
@@ -36,6 +37,7 @@ class Login extends Component {
   }
 
   render() {
+    const { email, password } = this.state;
     return (
       <div className="Login">
         <Image className="logo" src="https://universidadesdemexico.mx/logos/original/logo-universidad-del-caribe.png" fluid />
@@ -44,19 +46,19 @@ class Login extends Component {
             <h4 className="display-4">Inventario OP</h4>
             <Form.Group controlId="formBasicEmail">
               <Form.Label>Correo Electronico</Form.Label>
-              <Form.Control type="email" placeholder="Enter email" />
+              <Form.Control type="email" placeholder="Enter email" onChange={this.handleChange} name="email" value={email} />
             </Form.Group>
 
             <Form.Group controlId="formBasicPassword">
               <Form.Label>Contraseña</Form.Label>
-              <Form.Control type="password" placeholder="Password" />
+              <Form.Control type="password" placeholder="Password" onChange={this.handleChange} name="password" value={password} />
             </Form.Group>
 
-            <Form.Group controlId="formBasicChecbox">
+            {/* <Form.Group controlId="formBasicChecbox">
               <Form.Check type="checkbox" label="Mantener iniciada la sesión" />
-            </Form.Group>
+            </Form.Group> */}
 
-            <Button variant="primary" type="submit">
+            <Button variant="primary" type="submit" onClick={this.handleSubmit}>
               Ingresar
               </Button>
           </div>
