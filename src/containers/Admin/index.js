@@ -38,7 +38,7 @@ class Tags extends Component {
   }
 
   deleteTag(id) {
-    let r = window.confirm("Do you want to delete this item");
+    let r = window.confirm("¿Seguro que deseas borrar esta etiqueta?");
     if (r === true) {
     let filteredTagList = this.state.tagList.filter(x => x.id !== id);
     this.setState((prevState, props) => ({
