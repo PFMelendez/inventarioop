@@ -127,7 +127,7 @@ class FormularioCrearObejto extends Component {
       newTags,
       tags
     };
-    const that=this;
+    const that = this;
 
     api.objetos.create(params)
       .then(response => {
@@ -184,7 +184,7 @@ class FormularioCrearObejto extends Component {
             <label htmlFor="option">Nombre del Objeto</label>
           </div>
           <div className="col-6" >
-            <input type="text" className="form-control" id="nombre" name="nombre" onChange={this.handleChange} value={nombre}/>
+            <input type="text" className="form-control" id="nombre" name="nombre" onChange={this.handleChange} value={nombre} />
           </div>
         </div>
         <div className=" row pt-3">
@@ -193,6 +193,7 @@ class FormularioCrearObejto extends Component {
           </div>
           <div className="col-6" >
             <select className="form-control" id="opcion" name="categoria" onChange={this.handleCategoria} value={categoria} >
+              <option value="">Seleccione...</option>
               {categorias.map(item => <option key={`id_sub_categoria-${item.id}`} value={item.id}>{item.descripcion}</option>)}
             </select>
           </div>
@@ -205,6 +206,7 @@ class FormularioCrearObejto extends Component {
           </div>
           <div className="col-6" >
             <select className="form-control" id="option" name="subCategoria" onChange={this.handleChange} value={subCategoria} >
+              <option value="">Seleccione...</option>
               {subCategorias.map(item => <option key={`id_sub_categoria-${item.id}`} value={item.id}>{item.descripcion}</option>)}
             </select>
           </div>
@@ -217,6 +219,7 @@ class FormularioCrearObejto extends Component {
           </div>
           <div className="col-6" >
             <select className="form-control" id="opcion" name="estado" onChange={this.handleChange} value={estado}>
+              <option value="">Seleccione...</option>
               {estados.map(item => <option key={`id_estado-${item.id_estado}`} value={item.id_estado}>{item.descripcion}</option>)}
             </select>
           </div>
@@ -244,7 +247,7 @@ class FormularioCrearObejto extends Component {
             <label htmlFor="option">Lugar donde se encontro:</label>
           </div>
           <div className="col-6" >
-            <input type="text" className="form-control" id="opcion" name="lugarHallazgo" onChange={this.handleChange} value={lugarHallazgo}/>
+            <input type="text" className="form-control" id="opcion" name="lugarHallazgo" onChange={this.handleChange} value={lugarHallazgo} />
           </div>
         </div>
         <div className=" row pt-3">
@@ -252,7 +255,7 @@ class FormularioCrearObejto extends Component {
             <label htmlFor="option">Notas:</label>
           </div>
           <div className="col-6" >
-            <input type="text" className="form-control" id="opcion" name="notas" onChange={this.handleChange} value={notas}/>
+            <input type="text" className="form-control" id="opcion" name="notas" onChange={this.handleChange} value={notas} />
           </div>
         </div>
         <div className="col-6" >
