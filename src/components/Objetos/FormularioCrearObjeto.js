@@ -120,7 +120,7 @@ class FormularioCrearObejto extends Component {
 
     const params = {
       nombre,
-      id_estado: estado,
+      estado,
       lugar_hallazgo: lugarHallazgo,
       informacion_adicional: notas,
       subCategoria,

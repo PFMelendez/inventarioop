@@ -29,6 +29,7 @@ export function* autoLogin() {
   const sessionString = yield call(ls.get, 'inventarioopSession');
   if (sessionString) {
     const { user } = JSON.parse(sessionString);
+    yield call(api.auth, user.id_usuarios);
     yield put(actions.setStatus(true));
     yield put(actions.setUser(user));
   } else {
