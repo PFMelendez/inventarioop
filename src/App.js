@@ -6,7 +6,9 @@ import Home from './containers/Home';
 import Login from './containers/Login';
 import Tags from './containers/Admin';
 import Objetos from './components/Objetos/FormularioCrearObjeto';
+import loginActions from './containers/Login/actions';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { bindActionCreators } from 'redux';
 
 class App extends Component {
   componentDidMount() {
@@ -42,4 +44,9 @@ const mapStateToProps = ({
   }
 }) => ({ location, loggedIn, loading });
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = dispatch => {
+  const { autoLogin } = loginActions;
+  return bindActionCreators({ autoLogin }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
