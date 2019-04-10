@@ -46,5 +46,5 @@ export function* logOut() {
 export default function* loginSagas() {
   yield takeLatest(actions.triggerLogin.type, logIn);
   yield takeLatest(actions.autoLogin.type, autoLogin);
-  yield takeLatest(actions.triggerLogout, logOut);
+  yield takeLatest(actions.triggerLogout.type, logOut);
 }
