@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-axios.defaults.baseURL = process.env.API_URL || 'http://localhost:3015';
+axios.defaults.baseURL = process.env.REACT_APP_API_URL || 'http://localhost:3015';
 
 const auth = user_id => {
   axios.defaults.params = { user_id };
