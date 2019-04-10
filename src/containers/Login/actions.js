@@ -5,10 +5,29 @@ const prefix = '@inventarioop/containers/Login';
 const types = [
   'TRIGGER_LOGIN',
   'TRIGGER_LOGOUT',
+  'END_LOGOUT',
   'SET_USER',
-  'SET_STATUS'
+  'SET_STATUS',
+  'AUTO_LOGIN',
+  'SET_LOADING'
 ];
 
-const { triggerLogin, triggerLogout, setUser, setStatus } = createActions(prefix, types);
+const {
+  triggerLogin,
+  triggerLogout,
+  endLogout,
+  setUser,
+  setStatus,
+  autoLogin,
+  setLoading
+} = createActions(prefix, types);
 
-export default { triggerLogin, triggerLogout, setUser, setStatus };
+export default {
+  triggerLogin,
+  triggerLogout,
+  endLogout,
+  setUser,
+  setStatus,
+  autoLogin,
+  setLoading
+};
