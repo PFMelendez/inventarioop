@@ -1,13 +1,18 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 import actions from './actions';
 import api from '../../services/api';
+import helpers from '../../services/helpers';
+
+const { LocalStorage } = helpers;
+const ls = new LocalStorage();
+// const getFromStorage = item => localStorage.getItem(item);
 
 export function* logIn({ payload }) {
   try {
     const { data: { user } } = yield call(api.login, payload);
 
     const sessionString = JSON.stringify({ user });
-    yield call(localStorage['setItem'], 'inventarioopSession', sessionString);
+    yield call(ls.set, 'inventarioopSession', sessionString);
     yield call(api.auth, user.id_usuarios);
     yield put(actions.setUser(user));
     yield put(actions.setStatus(true));
@@ -20,7 +25,8 @@ export function* logIn({ payload }) {
 }
 
 export function* autoLogin() {
-  const sessionString = yield call(localStorage['getItem'], 'inventarioopSession');
+  console.log('autologin')
+  const sessionString = yield call(ls.get, 'inventarioopSession');
   if (sessionString) {
     const { user } = JSON.parse(sessionString);
     yield put(actions.setStatus(true));
@@ -33,7 +39,7 @@ export function* autoLogin() {
 
 export function* logOut() {
   yield put(actions.setLoading(true));
-  yield call(localStorage['removeItem'], 'inventarioopSession');
+  yield call(ls.remove, 'inventarioopSession');
   yield put(actions.endLogout());
 }
 
