@@ -9,8 +9,15 @@ import Objetos from './components/Objetos/FormularioCrearObjeto';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 class App extends Component {
+  componentDidMount() {
+    const { autoLogin } = this.props;
+    autoLogin();
+  }
+
   render() {
-    const { location, loggedIn } = this.props;
+    const { location, loggedIn, loading } = this.props;
+
+    if (loading) return <div>Cargando... Espere por favor.</div>;
 
     return loggedIn ? (
       <div>
@@ -27,6 +34,12 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = ({ router, login: { status } }) => ({ location: router.location, loggedIn: status });
+const mapStateToProps = ({
+  router: { location },
+  login: {
+    status: loggedIn,
+    loading
+  }
+}) => ({ location, loggedIn, loading });
 
 export default connect(mapStateToProps)(App);

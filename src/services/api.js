@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-axios.defaults.baseURL = 'https://api-inventarioop.herokuapp.com/api'
+axios.defaults.baseURL = process.env.API_URL || 'http://localhost:3015';
 
 const auth = user_id => {
   axios.defaults.params = { user_id };
