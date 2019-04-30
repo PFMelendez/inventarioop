@@ -5,7 +5,12 @@ import Navigation from './components/Layout/navegation';
 import Home from './containers/Home';
 import Login from './containers/Login';
 import Tags from './containers/Admin';
-import Objetos from './components/Objetos/FormularioCrearObjeto';
+import Objeto from './components/Objetos/FormularioCrearObjeto';
+import ListaObjetos from './containers/ListaObjetos';
+import Usuario from './containers/Usuario';
+import ListaUsuarios from './containers/ListaUsuarios';
+import Subcategoria from './containers/Subcategoria';
+import ListaSubcategorias from './containers/ListaSubcategorias';
 import loginActions from './containers/Login/actions';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { bindActionCreators } from 'redux';
@@ -27,7 +32,15 @@ class App extends Component {
         <Switch location={location}>
           {/* <Route exact path="/login" component={Login} /> */}
           <Route exact path="/admin/tags" component={Tags} />
-          <Route exact path="/objetos" component={Objetos} />
+          <Route exact path="/objeto/crear" component={Objeto} />
+          <Route exact path="/objeto/:id" component={Objeto} />
+          <Route exact path="/objetos" component={ListaObjetos} />
+          <Route exact path="/usuario/crear" component={Usuario} />
+          <Route exact path="/usuario/:id" component={Usuario} />
+          <Route exact path="/usuarios" component={ListaUsuarios} />
+          <Route exact path="/subcategoria/crear" component={Subcategoria} />
+          <Route exact path="/subcategoria/:id" component={Subcategoria} />
+          <Route exact path="/subcategorias" component={ListaSubcategorias} />
           <Route exact path="/" component={Home} />
           <Redirect to="/" />
         </Switch>
