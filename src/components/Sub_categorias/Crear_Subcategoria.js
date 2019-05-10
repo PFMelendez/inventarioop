@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import api from '../../services/api';
 //import helpers from '../../services/helpers';
 //import { MainRow, FilterWrapper, TableWrapper } from './styled';
-class FormularioCrearObejto extends Component {
+class FormularioCrearSubcategoria extends Component {
 
   constructor(args) {
     super(args);
@@ -204,7 +204,7 @@ class FormularioCrearObejto extends Component {
         <button type="submit"
                     className="btn btn-primary mb-2 mr-sm-2"
                   >
-                    Guardar subCategoria
+                    Guardar Registro
                   </button>
         </div>
         <br />
@@ -212,4 +212,4 @@ class FormularioCrearObejto extends Component {
     );
   }
 }
-export default FormularioCrearObejto;
+export default FormularioCrearSubcategoria;

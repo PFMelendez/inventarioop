@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
 import { MainRow, FilterWrapper, TableWrapper } from './styled';
 
-class TablaBusquda extends Component {
+class TablaBusqudaSubcategorias extends Component {
   constructor(props) {
     super(props);
-    this.state = 'false'
+    this.state = {estado: 'false',      
+    categorias: []}
   }
 
-  render() {
+  render() {    const {
+    categoria,
+    categorias,
+  } = this.state;
     return (
       <div>
         <MainRow className="row">
@@ -15,18 +19,10 @@ class TablaBusquda extends Component {
             <div className="row">
               <div className="col">
                 <form className="form-inline">
-                  <select className="form-control mb-2 mr-sm-2">
-                    <option selected>Categorias...</option>
-                    <option value="">Electronico</option>
-                    <option value="Trabajador">Papeleria</option>
-                    <option value="Trabajador">Vestiemnta</option>
-                    <option value="Trabajador">Personal</option>
-                    <option value="Trabajador">Equipamento</option>
-                    <option value="Trabajador">Otro</option>
-                  </select>
-                  <select className="form-control mb-2 mr-sm-2">
-                    <option value="">Tags</option>
-                  </select>
+                  <select className="form-control mb-2 mr-sm-2" id="opcion" name="categoria" onChange={this.handleCategoria} value={categoria} >
+                        <option value="">Categoria</option>
+                        {categorias.map(item => <option key={`id_sub_categoria-${item.id}`} value={item.id}>{item.descripcion}</option>)}
+                    </select>
                   <button
                     type="submit"
                     className="btn btn-primary mb-2 mr-sm-2"
@@ -43,15 +39,27 @@ class TablaBusquda extends Component {
             <table className="table table-hover text-center">
               <thead>
                 <tr>
-                  <th scope="col">Ctegoria</th>
-                  <th scope="col">Tags</th>
-                  <th scope="col">Fehcha encontrado</th>
-                  <th scope="col">Lugar encontrado</th>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Categoria</th>
+                  <th scope="col">Fila</th>
                 </tr>
               </thead>
               <tbody>
               </tbody>
             </table>
+            <div>
+            <button
+                    type="actualizar"
+                    className="btn btn-primary mb-2 mr-sm-2"
+                  > Guardar
+                  </button>
+            <button
+                type="actualizar"
+                className="btn btn-primary mb-2 mr-sm-2"
+              > Eliminar
+           </button>
+            </div>
+
           </TableWrapper>
         </MainRow>
       </div>
@@ -59,4 +67,4 @@ class TablaBusquda extends Component {
   }
 }
 
-export default TablaBusquda;
+export default TablaBusqudaSubcategorias;
