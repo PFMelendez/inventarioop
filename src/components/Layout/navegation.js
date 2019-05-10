@@ -25,6 +25,9 @@ class Navigation extends Component {
             <li class="nav-item">
               <Link className="navbar-brand" to="/admin/tags">Etiquetas</Link>
             </li>
+            <li class="nav-item">
+              <Link className="navbar-brand" to="/Usuarios">Usuarios</Link>
+            </li>
             <li className="nav-item">
               <button className="btn btn-danger" onClick={triggerLogout}>Cerrar Sesión</button>
             </li>
