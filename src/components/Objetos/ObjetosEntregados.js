@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { MainRow, FilterWrapper, TableWrapper } from './styled';
 
-class TablaBusqudaSubcategorias extends Component {
+class ObjetosEntregados extends Component {
   constructor(props) {
     super(props);
     this.state = {estado: 'false',      
@@ -68,4 +68,4 @@ class TablaBusqudaSubcategorias extends Component {
   }
 }
 
-export default TablaBusqudaSubcategorias;
+export default ObjetosEntregados;
