@@ -180,7 +180,9 @@ class ListaObjetos extends Component {
         <div className="row mt-3">
           <div className="col-lg-12">
             <div className="card">
-              <div className="card-header"> Listado de Objetos </div>
+              <div className="card-header">
+                <h5>Listado de Objetos</h5>
+              </div>
               <div className="container" style={{ marginTop: 50 }}>    
               <ToolkitProvider
                 keyField='id'

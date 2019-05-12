@@ -4,14 +4,17 @@ import { MainRow, FilterWrapper, TableWrapper } from './styled';
 class TablaBusqudaSubcategorias extends Component {
   constructor(props) {
     super(props);
-    this.state = {estado: 'false',      
-    categorias: []}
+    this.state = {
+      estado: 'false',
+      categorias: []
+    }
   }
 
-  render() {    const {
-    categoria,
-    categorias,
-  } = this.state;
+  render() {
+    const {
+      categoria,
+      categorias,
+    } = this.state;
     return (
       <div>
         <MainRow className="row">
@@ -20,9 +23,9 @@ class TablaBusqudaSubcategorias extends Component {
               <div className="col">
                 <form className="form-inline">
                   <select className="form-control mb-2 mr-sm-2" id="opcion" name="categoria" onChange={this.handleCategoria} value={categoria} >
-                        <option value="">Categoria</option>
-                        {categorias.map(item => <option key={`id_sub_categoria-${item.id}`} value={item.id}>{item.descripcion}</option>)}
-                    </select>
+                    <option value="">Categoria</option>
+                    {categorias.map(item => <option key={`id_sub_categoria-${item.id}`} value={item.id}>{item.descripcion}</option>)}
+                  </select>
                   <button
                     type="submit"
                     className="btn btn-primary mb-2 mr-sm-2"
@@ -42,23 +45,33 @@ class TablaBusqudaSubcategorias extends Component {
                   <th scope="col">Nombre</th>
                   <th scope="col">Categoria</th>
                   <th scope="col">Fila</th>
+                  <th scope="col">Acciones</th>
                 </tr>
               </thead>
               <tbody>
+                <tr>
+                  <td>Subcategoria</td>
+                  <td>Subcategoria</td>
+                  <td>Subcategoria</td>
+                  <td>
+                    <button type="button" className="btn btn-primary mb-2 mr-sm-2">Guardar</button>
+                    <button type="actualizar" className="btn btn-primary mb-2 mr-sm-2">Eliminar</button>
+                  </td>
+                </tr>
               </tbody>
             </table>
-            <div>
-            <button
-                    type="actualizar"
-                    className="btn btn-primary mb-2 mr-sm-2"
-                  > Guardar
+            {/* <div>
+              <button
+                type="actualizar"
+                className="btn btn-primary mb-2 mr-sm-2"
+              > Guardar
                   </button>
-            <button
+              <button
                 type="actualizar"
                 className="btn btn-primary mb-2 mr-sm-2"
               > Eliminar
            </button>
-            </div>
+            </div> */}
 
           </TableWrapper>
         </MainRow>
