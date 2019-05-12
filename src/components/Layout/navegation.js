@@ -13,26 +13,30 @@ class Navigation extends Component {
         {/* <Link className="navbar-brand" to="/">Menú</Link> */}
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav">
-            <li className="nav-item active">
+            {/* <li className="nav-item active">
               <Link className="navbar-brand" to="/">Home</Link>
-            </li>
+            </li> */}
             {/* <li className="nav-item">
               <Link className="navbar-brand" to="/busquedas">Busquedas</Link>
             </li> */}
             <li class="nav-item">
-              <Link className="navbar-brand" to="/objetos">Objetos</Link>
+              <Link className="navbar-brand" to="/objetos">Lista de Objetos</Link>
             </li>
             <li class="nav-item">
+              <Link className="navbar-brand" to="/objetos">Registrar Objeto</Link>
+            </li>
+            {/* <li class="nav-item">
               <Link className="navbar-brand" to="/admin/tags">Etiquetas</Link>
+            </li> */}
+            <li class="nav-item">
+              <Link className="navbar-brand" to="/admin">Admin</Link>
+            </li>
+            {/* <li class="nav-item">
+              <Link className="navbar-brand" to="/admin/subcategorias/crear"> Crear Subcategorias</Link>
             </li>
             <li class="nav-item">
-              <Link className="navbar-brand" to="/Usuarios">Usuarios</Link>
-            </li>
-              <Link className="navbar-brand" to="/admin/tags"> Crear Subcategorias</Link>
-            </li>
-            <li class="nav-item">
-              <Link className="navbar-brand" to="/admin/tags"> Buscar Subcategoria</Link>
-            </li>
+              <Link className="navbar-brand" to="/admin/subcategorias"> Buscar Subcategoria</Link>
+            </li> */}
             {/* <div class="dropdown">
               <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
               Subcategorias
@@ -45,7 +49,7 @@ class Navigation extends Component {
             <li className="nav-item">
               <button className="btn btn-danger" onClick={triggerLogout}>Cerrar Sesión</button>
             </li>
-            
+
           </ul>
         </div>
       </nav>
