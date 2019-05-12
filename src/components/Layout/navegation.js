@@ -23,7 +23,7 @@ class Navigation extends Component {
               <Link className="navbar-brand" to="/objetos">Lista de Objetos</Link>
             </li>
             <li class="nav-item">
-              <Link className="navbar-brand" to="/objetos">Registrar Objeto</Link>
+              <Link className="navbar-brand" to="/objetos/crear">Registrar Objeto</Link>
             </li>
             {/* <li class="nav-item">
               <Link className="navbar-brand" to="/admin/tags">Etiquetas</Link>

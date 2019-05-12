@@ -241,6 +241,20 @@ class FormularioCrearObejto extends Component {
           </div>
         </div>
         <div className=" row pt-3">
+          <div className="col-3">
+            <label htmlFor="imagen">Foto del Objeto:</label>
+          </div>
+          <div className="col-6" >
+            <div className="input-group">
+              <div className="custom-file">
+                <input type="file" className="custom-file-input" />
+                <label className="custom-file-label" />
+              </div>
+              {/* <div className="input-group-append">
+                <span className="input-group-text">Examinar</span>
+              </div> */}
+            </div>
+          </div>
         </div>
         <div className=" row pt-3">
           <div className="col-3">
@@ -258,8 +272,11 @@ class FormularioCrearObejto extends Component {
             <input type="text" className="form-control" id="opcion" name="notas" onChange={this.handleChange} value={notas} />
           </div>
         </div>
-        <div className="col-6" >
-          <button onClick={this.registrarObjeto}>Registrar Objeto</button>
+        <br />
+        <div className="row">
+          <div className="col-6" >
+            <button type="button" className="btn btn-primary" onClick={this.registrarObjeto}>Registrar Objeto</button>
+          </div>
         </div>
         <br />
       </div>

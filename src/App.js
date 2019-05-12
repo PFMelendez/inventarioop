@@ -8,7 +8,7 @@ import Login from './containers/Login';
 import Admin from './containers/Admin'
 import Objeto from './components/Objetos/FormularioCrearObjeto';
 import ListaObjetos from './containers/ListaObjetos';
-import DetalleObjeto from './containers/Objeto';
+// import DetalleObjeto from './containers/Objeto';
 import Usuario from './containers/Usuario';
 import ListaUsuarios from './containers/ListaUsuarios';
 import Subcategoria from './containers/Subcategoria';
@@ -32,10 +32,9 @@ class App extends Component {
       <div>
         <Navigation />
         <Switch location={location}>
-          <Route exact path="/objeto/crear" component={Objeto} />
-          <Route exact path="/objeto/:id" component={Objeto} />
+          <Route exact path="/objetos/crear" component={Objeto} />
+          <Route exact path="/objetos/:id" component={Objeto} />
           <Route exact path="/objetos" component={ListaObjetos} />
-          <Route exact path="/detalle/objeto" component={DetalleObjeto} />
           <Route exact path="/usuario/crear" component={Usuario} />
           <Route exact path="/usuario/:id" component={Usuario} />
           <Route exact path="/usuarios" component={ListaUsuarios} />
