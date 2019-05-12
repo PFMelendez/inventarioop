@@ -26,6 +26,8 @@ class Navigation extends Component {
               <Link className="navbar-brand" to="/admin/tags">Etiquetas</Link>
             </li>
             <li class="nav-item">
+              <Link className="navbar-brand" to="/Usuarios">Usuarios</Link>
+            </li>
               <Link className="navbar-brand" to="/admin/tags"> Crear Subcategorias</Link>
             </li>
             <li class="nav-item">
