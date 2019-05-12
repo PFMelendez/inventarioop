@@ -25,9 +25,25 @@ class Navigation extends Component {
             <li class="nav-item">
               <Link className="navbar-brand" to="/admin/tags">Etiquetas</Link>
             </li>
+            <li class="nav-item">
+              <Link className="navbar-brand" to="/admin/tags"> Crear Subcategorias</Link>
+            </li>
+            <li class="nav-item">
+              <Link className="navbar-brand" to="/admin/tags"> Buscar Subcategoria</Link>
+            </li>
+            {/* <div class="dropdown">
+              <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+              Subcategorias
+              </button>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="#">Crear Subcategorias</a>
+                <a class="dropdown-item" href="#">Buscar Subcategoria</a>
+              </div>
+            </div> */}
             <li className="nav-item">
               <button className="btn btn-danger" onClick={triggerLogout}>Cerrar Sesión</button>
             </li>
+            
           </ul>
         </div>
       </nav>
