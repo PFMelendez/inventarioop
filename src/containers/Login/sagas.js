@@ -19,7 +19,7 @@ export function* logIn({ payload }) {
   } catch (err) {
     // API Error Stuff
     console.log(err);
-    yield put(actions.setStatus(true));
+    yield put(actions.setStatus(false));
     alert('Error al hacer login, revise sus credenciales');
   }
 }
