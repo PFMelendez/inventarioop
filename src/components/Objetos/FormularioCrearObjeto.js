@@ -171,114 +171,73 @@ class FormularioCrearObejto extends Component {
 
     const { antibind } = helpers;
     return (
-      <div className='container'>
-        <div className=" row pt-3">
-          <div className="col-3">
-            <label htmlFor="option">Llene los campos para agregar un objeto.</label>
-          </div>
-        </div>
-        <div className=" row pt-3">
-        </div>
-        <div className=" row pt-3">
-          <div className="col-3">
-            <label htmlFor="option">Nombre del Objeto</label>
-          </div>
-          <div className="col-6" >
-            <input type="text" className="form-control" id="nombre" name="nombre" onChange={this.handleChange} value={nombre} />
-          </div>
-        </div>
-        <div className=" row pt-3">
-          <div className="col-3">
-            <label htmlFor="option">¿Que tipo de objeto fue encontrado? :</label>
-          </div>
-          <div className="col-6" >
-            <select className="form-control" id="opcion" name="categoria" onChange={this.handleCategoria} value={categoria} >
-              <option value="">Seleccione...</option>
-              {categorias.map(item => <option key={`id_sub_categoria-${item.id}`} value={item.id}>{item.descripcion}</option>)}
-            </select>
-          </div>
-        </div>
-        <div className=" row pt-3">
-        </div>
-        <div className=" row pt-3">
-          <div className="col-3">
-            <label htmlFor="option">Subcategoria</label>
-          </div>
-          <div className="col-6" >
-            <select className="form-control" id="option" name="subCategoria" onChange={this.handleChange} value={subCategoria} >
-              <option value="">Seleccione...</option>
-              {subCategorias.map(item => <option key={`id_sub_categoria-${item.id}`} value={item.id}>{item.descripcion}</option>)}
-            </select>
-          </div>
-        </div>
-        <div className=" row pt-3">
-        </div>
-        <div className=" row pt-3">
-          <div className="col-3">
-            <label htmlFor="option">Estado del objeto :</label>
-          </div>
-          <div className="col-6" >
-            <select className="form-control" id="opcion" name="estado" onChange={this.handleChange} value={estado}>
-              <option value="">Seleccione...</option>
-              {estados.map(item => <option key={`id_estado-${item.id_estado}`} value={item.id_estado}>{item.descripcion}</option>)}
-            </select>
-          </div>
-        </div>
-        <div className=" row pt-3">
-          <div className="col-3">
-            <label>Etiquetas:</label>
-          </div>
-          <div className="col-6" >
-            <Combobox showMenu={(nombreNuevaEtiqueta.length > 3)} inputCb={this.handleNombreEtiqueta} selectCb={this.handleEtiquetas} options={etiquetas} val={nombreNuevaEtiqueta} placeholder='Etiquetas' />
-          </div>
-        </div>
-        <div className=" row pt-3">
-        </div>
-        <div className=" row pt-3">
-          <div className="col-9">
-            {tags.map((item, index) => <button type="button" className="btn btn-primary" onClick={antibind(this.deleteTag, index)}>{item.nombre_etiqueta}</button>)}
-            {newTags.map((item, index) => <button type="button" className="btn btn-primary" onClick={antibind(this.deleteNewTag, index)}>{item}</button>)}
-          </div>
-        </div>
-        <div className=" row pt-3">
-          <div className="col-3">
-            <label htmlFor="imagen">Foto del Objeto:</label>
-          </div>
-          <div className="col-6" >
-            <div className="input-group">
-              <div className="custom-file">
-                <input type="file" className="custom-file-input" />
-                <label className="custom-file-label" />
+      <div className="container-fluid">
+        <div
+            className="d-flex align-items-center justify-content-center"
+            style={{ height: '125vh' }}
+        >
+            <div className="card">
+              <div className="card-header">
+                    <h4>Agregar un objeto.</h4>
               </div>
-              {/* <div className="input-group-append">
-                <span className="input-group-text">Examinar</span>
-              </div> */}
+              <div className="card-body">
+                <form onSubmit={this.handleSubmit}>
+                  <div className="form-group">  
+                      <label htmlFor="option">Nombre del Objeto:</label>
+                      <input type="text" className="form-control" id="nombre" name="nombre" onChange={this.handleChange} value={nombre} />
+                  </div>
+                  <div className="form-group">  
+                      <label htmlFor="option">Obeto encontrado: </label>
+                      <select className="form-control" id="opcion" name="categoria" onChange={this.handleCategoria} value={categoria} >
+                        <option value="">Seleccione...</option>
+                        {categorias.map(item => <option key={`id_sub_categoria-${item.id}`} value={item.id}>{item.descripcion}</option>)}
+                      </select>  
+                  </div>
+
+                  <div className="form-group">  
+                      <label htmlFor="option">Subcategoria: </label>
+                      <select className="form-control" id="option" name="subCategoria" onChange={this.handleChange} value={subCategoria} >
+                        <option value="">Seleccione...</option>
+                        {subCategorias.map(item => <option key={`id_sub_categoria-${item.id}`} value={item.id}>{item.descripcion}</option>)}
+                      </select>
+                  </div>
+
+                  <div className="form-group">  
+                      <label htmlFor="option">Estado del objeto : </label>
+                      <select className="form-control" id="opcion" name="estado" onChange={this.handleChange} value={estado}>
+                        <option value="">Seleccione...</option>
+                        {estados.map(item => <option key={`id_estado-${item.id_estado}`} value={item.id_estado}>{item.descripcion}</option>)}
+                      </select>
+                  </div>
+                  <div className="form-group">  
+                      <label htmlFor="option">Etiquetas: </label>
+                      <div className="col-6" ></div>
+                        <Combobox showMenu={(nombreNuevaEtiqueta.length > 3)} inputCb={this.handleNombreEtiqueta} selectCb={this.handleEtiquetas} options={etiquetas} val={nombreNuevaEtiqueta} placeholder='Etiquetas' />
+                  </div>  
+                  <div className=" row pt-3">
+                    <div className="col-9">
+                      {tags.map((item, index) => <button type="button" className="btn btn-primary" onClick={antibind(this.deleteTag, index)}>{item.nombre_etiqueta}</button>)}
+                      {newTags.map((item, index) => <button type="button" className="btn btn-primary" onClick={antibind(this.deleteNewTag, index)}>{item}</button>)}
+                    </div>
+                  </div>
+
+                  <div className="form-group">  
+                      <label htmlFor="option">Lugar donde se encontro: </label>
+                      <div className="col-6" ></div>
+                      <input type="text" className="form-control" id="opcion" name="lugarHallazgo" onChange={this.handleChange} value={lugarHallazgo} />
+                  </div>  
+
+                  <div className="form-group">  
+                      <label htmlFor="option">Notas: </label>
+                      <div className="col-6" ></div>
+                      <textarea type="text" className="form-control" id="opcion" name="notas" onChange={this.handleChange} value={notas} />
+                  </div> 
+                  <button onClick={this.registrarObjeto}>Registrar Objeto</button>
+
+                </form>
+              </div>
             </div>
-          </div>
         </div>
-        <div className=" row pt-3">
-          <div className="col-3">
-            <label htmlFor="option">Lugar donde se encontro:</label>
-          </div>
-          <div className="col-6" >
-            <input type="text" className="form-control" id="opcion" name="lugarHallazgo" onChange={this.handleChange} value={lugarHallazgo} />
-          </div>
-        </div>
-        <div className=" row pt-3">
-          <div className="col-3">
-            <label htmlFor="option">Notas:</label>
-          </div>
-          <div className="col-6" >
-            <input type="text" className="form-control" id="opcion" name="notas" onChange={this.handleChange} value={notas} />
-          </div>
-        </div>
-        <br />
-        <div className="row">
-          <div className="col-6" >
-            <button type="button" className="btn btn-primary" onClick={this.registrarObjeto}>Registrar Objeto</button>
-          </div>
-        </div>
-        <br />
       </div>
     );
   }
