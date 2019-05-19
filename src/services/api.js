@@ -28,5 +28,8 @@ export default {
   },
   estados: {
     list: () => axios.get('/estado'),
+  },
+  tiposUsuarios: {
+    list: () => axios.get('/tiposUsuarios')
   }
 }
