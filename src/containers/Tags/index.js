@@ -2,16 +2,6 @@ import React, { Component } from 'react';
 import TagList from './TagList.jsx';
 import './styles.css';
 
-/* registros estaticos temporales, posteriormente se conectará con la bd*/
-
-const tagList = [{ id: 1, name: 'Reloj', category: 'Personal'/*,subcategory:'Personal'*/ },
-{ id: 2, name: 'Llave', category: 'Personal'/*,subcategory:'Personal'*/ },
-{ id: 3, name: 'Celular', category: 'Electronica'/*,subcategory:'Telefonos'*/ },
-{ id: 4, name: 'Laptop', category: 'Electronica'/*,subcategory:'Computadoras'*/ }];
-
-if (localStorage.getItem("tags") === null)
-  localStorage.setItem('tags', JSON.stringify(tagList));
-
 class Tags extends Component {
   constructor(props) {
     super(props);
@@ -31,20 +21,28 @@ class Tags extends Component {
     }));
   }
 
-  addNewTag() {
-    this.setState((prevState, props) => ({
-      tagList: [...prevState.tagList, { id: Math.max(...prevState.tagList.map(function (o) { return o.id })) + 1, name: '---', category: '---' }]
-    }));
+  addNewTag(tag) {
+    const { tags } = this.state;
+    const that = this;
+    api.etiquetas.create(tag)
+      .then(response => {
+        const { tag: newTag } = response.data;
+        const newTags = [...tags, newTag];
+        that.setState({ tags: newTags });
+      })
+      .catch(err => {
+        console.log(err);
+        alert('Error al cargar las etiquetas.');
+      })
   }
 
   deleteTag(id) {
-    let r = window.confirm("¿Seguro que deseas borrar esta etiqueta?");
-    if (r === true) {
-      let filteredTagList = this.state.tagList.filter(x => x.id !== id);
-      this.setState((prevState, props) => ({
-        tagList: filteredTagList
-      }));
-      localStorage.setItem('tags', JSON.stringify(filteredTagList));
+    const conf = window.confirm("¿Seguro que deseas borrar esta etiqueta?");
+    if (conf) {
+      api.etiquetas.delete(id)
+        .then(() => {
+          api.etiquetas.list()
+        })
     }
   }
 
@@ -70,14 +68,26 @@ class Tags extends Component {
           <div className="card">
             <div className="card-header">
               Registro de Etiquetas
-    </div>
+            </div>
             <div className="card-body">
               <table className="table table-hover">
-                <thead className="thead-dark"><tr><th>Id</th><th>Nombre</th><th>Categoría</th><th>Editar/Guardar</th><th>Eliminar</th></tr></thead>
+                <thead className="thead-dark">
+                  <tr>
+                    <th>Id</th>
+                    <th>Nombre</th>
+                    <th>Categoría</th>
+                    <th>Editar/Guardar</th>
+                    <th>Eliminar</th>
+                  </tr>
+                </thead>
                 <TagList deleteTag={this.deleteTag} tagList={this.state.tagList} editTagSubmit={this.editTagSubmit} />
               </table>
               <button className="btn btn-dark pull-left" onClick={this.addNewTag}>Agregar</button>
-            </div></div></div></div></div>
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
     );
   }
 }

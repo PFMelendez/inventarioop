@@ -8,6 +8,7 @@ import Login from './containers/Login';
 import Admin from './containers/Admin'
 import Objeto from './components/Objetos/FormularioCrearObjeto';
 import ListaObjetos from './containers/ListaObjetos';
+import ListaDonarObjetos from './containers/ListaDonarObjetos';
 // import DetalleObjeto from './containers/Objeto';
 import Usuario from './containers/Usuario';
 import ListaUsuarios from './containers/ListaUsuarios';
@@ -35,6 +36,7 @@ class App extends Component {
           <Route exact path="/objetos/crear" component={Objeto} />
           <Route exact path="/objetos/:id" component={Objeto} />
           <Route exact path="/objetos" component={ListaObjetos} />
+          <Route exact path="/donar/objetos" component={ListaDonarObjetos} />
           <Route exact path="/usuario/crear" component={Usuario} />
           <Route exact path="/usuario/:id" component={Usuario} />
           <Route exact path="/usuarios" component={ListaUsuarios} />
