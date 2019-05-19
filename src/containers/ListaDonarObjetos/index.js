@@ -5,6 +5,9 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import ToolkitProvider from 'react-bootstrap-table2-toolkit';
 import moment from 'moment';
 import api from '../../services/api';
+import helpers from '../../services/helpers';
+
+const { antibind } = helpers;
 
 // const { SearchBar, ClearSearchButton } = Search;
 
@@ -15,7 +18,10 @@ class ListaDonarObjetos extends Component {
 		this.state = {
 			objetos: [],
 			page: 0,
+			lastPage: false
 		};
+		this.loadObjects = this.loadObjects.bind(this);
+    this.handleApiErrors = this.handleApiErrors.bind(this);
 		this.loadNext = this.loadNext.bind(this);
 		this.loadLast = this.loadLast.bind(this);
 		this.donarObjetos = this.donarObjetos.bind(this);
@@ -24,51 +30,57 @@ class ListaDonarObjetos extends Component {
 	}
 
 	componentDidMount() {
-		const that = this;
-		api.objetos.listDonate(0)
-			.then(response => {
-				const { objetos } = response.data;
-				that.setState({ objetos });
-			})
-			.catch(err => {
-				console.log(err)
-				alert('Error al cargar los objetos.');
-			})
+		const { page } = this.state;
+		api.objetos.listDonate(page)
+			.then(antibind(this.loadObjects, page))
+			.catch(this.handleApiErrors)
 	}
+
+	loadObjects(response, page) {
+    const { objetos } = response.data;
+
+    if (objetos.length === 0) {
+      const { objetos: oldObjects } = this.state;
+
+      this.setState({ lastPage: true });
+
+      if (page === 0) {
+        this.setState({ objetos: [] });
+      }
+
+      if (oldObjects.length > 0) {
+        alert('No hay mas objetos que cargar');
+      }
+    } else if (objetos.length < 10) {
+      this.setState({ objetos, lastPage: true, page });
+    } else {
+      this.setState({ objetos, page });
+    }
+  }
+
+  handleApiErrors(err) {
+    console.log(err);
+    alert('Hubo un error al cargar los objetos.');
+  }
 
 	loadNext() {
 		const page = this.state.page + 1;
-		const that = this;
 		api.objetos.listDonate(page)
-			.then(response => {
-				const { objetos } = response.data;
-				that.setState({ objetos, page });
-			})
-			.catch(err => {
-				console.log(err);
-				alert('Error al cargar la iguiente pagina');
-			})
+			.then(antibind(this.loadObjects, page))
+			.catch(this.handleApiErrors)
 	}
 
 	loadLast() {
 		const page = this.state.page - 1;
 		if (page >= 0) {
-			const that = this;
 			api.objetos.listDonate(page)
-				.then(response => {
-					const { objetos } = response.data;
-					that.setState({ objetos, page });
-				})
-				.catch(err => {
-					console.log(err);
-					alert('Error al cargar la iguiente pagina');
-				})
+				.then(antibind(this.loadObjects, page))
+				.catch(this.handleApiErrors)
 		}
 	}
 
 	donarObjetos() {
 		const { objetos } = this.state;
-		const that = this;
 		const conf = confirm('Confirme la salida de los objetos.');
 		if (conf) {
 			const objetosIds = objetos.map(item => item.id);
@@ -76,14 +88,8 @@ class ListaDonarObjetos extends Component {
 				.then(() => {
 					alert('Todos los objetos de esta pagina han salido del inventario');
 					api.objetos.listDonate(0)
-						.then(response => {
-							const { objetos } = response.data;
-							that.setState({ objetos, page: 0 });
-						})
-						.catch(err => {
-							console.log(err)
-							alert('Error al cargar los objetos.');
-						})
+						.then(antibind(this.loadObjects, 0))
+						.catch(this.handleApiErrors)
 				})
 				.catch(err => {
 					console.log(err);
@@ -93,21 +99,15 @@ class ListaDonarObjetos extends Component {
 	}
 
 	donarObjeto(id) {
-		const that = this;
+		const { page } = this.state;
 		const conf = confirm('Confirme la salida del objeto.');
 		if (conf) {
 			api.objetos.donate({ objetos: [id] })
 				.then(() => {
 					alert('El objeto ha salido del inventario');
-					api.objetos.listDonate(0)
-						.then(response => {
-							const { objetos } = response.data;
-							that.setState({ objetos, page: 0 });
-						})
-						.catch(err => {
-							console.log(err)
-							alert('Error al cargar los objetos.');
-						})
+					api.objetos.listDonate(page)
+						.then(antibind(this.loadObjects, page))
+						.catch(this.handleApiErrors)
 				})
 				.catch(err => {
 					console.log(err);

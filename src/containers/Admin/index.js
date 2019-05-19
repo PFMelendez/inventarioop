@@ -15,10 +15,10 @@ class Admin extends Component {
         <div className='row'>
           <div className='col-2'>
             <Styled.SideBarWrapper>
-              <div style={{ marginTop: '10px' }}>
+              {/* <div style={{ marginTop: '10px' }}>
                 <p style={{ marginBottom: '0px' }}>Objetos</p>
                 <p><Link to="/admin/etiquetas">Etiquetas</Link></p>
-              </div>
+              </div> */}
               <div style={{ marginTop: '10px' }}>
                 <p style={{ marginBottom: '0px' }}>Usuarios</p>
                 <p style={{ marginBottom: '0px' }}><Link to="/admin/usuarios">Listar Usuarios</Link></p>

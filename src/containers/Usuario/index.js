@@ -143,7 +143,7 @@ class Usuario extends Component {
                       <td>
                         <select className='custom-select' name="tipoUsuario" value={tipoUsuario} onChange={this.handleInputs} >
                           <option value="">Seleccione...</option>
-                          {tiposUsuarios.map(item => <option value={item.id}>{item.nombre}</option>)}
+                          {tiposUsuarios.map(item => <option value={item.id}>{item.display}</option>)}
                         </select>
                       </td>
                     </tr>
