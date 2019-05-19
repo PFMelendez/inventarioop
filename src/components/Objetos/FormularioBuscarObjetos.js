@@ -22,7 +22,7 @@ class FormularioBuscarObjetos extends Component{
           </div>
         </div>
         <div class =" row pt-3">
-          <div class="col-3">
+          <div className="col-3">
             <label htmlFor="option">Tags seleccionadas :</label>
           </div>
           <div className="col-6" >
@@ -35,7 +35,7 @@ class FormularioBuscarObjetos extends Component{
           </div>
         </div>
         <div class =" row pt-3">
-          <div class="col-3">
+          <div className="col-3">
             <label htmlFor="option">Objetos encontrados :</label>
           </div>
           <div className="col-6" >
@@ -46,11 +46,11 @@ class FormularioBuscarObjetos extends Component{
           </div>
         </div>
         <div class =" row pt-3">
-          <div class="col-3">
+          <div className="col-3">
             <label htmlFor="option">      </label>
           </div>
-          <div class="nav-item">
-              <a class="nav-link" href="../../components/Objetos/FormularioBuscarObjetos">Agregar Nuevo objeto perdido</a>
+          <div className="nav-item">
+              <a className="nav-link" href="../../components/Objetos/FormularioBuscarObjetos">Agregar Nuevo objeto perdido</a>
           </div>
         </div>
         </div>
