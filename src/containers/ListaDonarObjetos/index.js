@@ -1,230 +1,214 @@
 import React, { Component } from 'react';
 //import { Button, Form } from "react-bootstrap";
 import BootstrapTable from 'react-bootstrap-table-next';
-import paginationFactory from 'react-bootstrap-table2-paginator';
-import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
+// import paginationFactory from 'react-bootstrap-table2-paginator';
+import ToolkitProvider from 'react-bootstrap-table2-toolkit';
+import moment from 'moment';
+import api from '../../services/api';
 
-const { SearchBar, ClearSearchButton } = Search;
-
-function donarObjeto(props){
-    console.log(" se dona el objeto con el id -> "+props.id);
-}
-
-function imageFormatter(cell, row) {
-  return(
-    <img src={cell} height = { '50' }></img>
-  );
-}
-
-function dateFormatter(cell, row) {
-    return(
-      <p>{cell}</p>
-    );
-  }
-
-function buttonFormatter(cell, row) {
-    return(
-        <button type="button" className="btn btn-primary" onClick={donarObjeto({row})}>Donar</button>
-    );
-}
+// const { SearchBar, ClearSearchButton } = Search;
 
 
 class ListaDonarObjetos extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-          startDate: new Date()
-        };
-        this.handleChange = this.handleChange.bind(this);
-      }
-     
-    handleChange(date) {
-        this.setState({
-            startDate: date
-        });
-    }
+	constructor(props) {
+		super(props);
+		this.state = {
+			objetos: [],
+			page: 0,
+		};
+		this.loadNext = this.loadNext.bind(this);
+		this.loadLast = this.loadLast.bind(this);
+		this.donarObjetos = this.donarObjetos.bind(this);
+		this.donarObjeto = this.donarObjeto.bind(this);
+		this.buttonFormatter = this.buttonFormatter.bind(this);
+	}
 
-    donarObjetos(){
-        console.log(" se donan todos test");
-    }
+	componentDidMount() {
+		const that = this;
+		api.objetos.listDonate(0)
+			.then(response => {
+				const { objetos } = response.data;
+				that.setState({ objetos });
+			})
+			.catch(err => {
+				console.log(err)
+				alert('Error al cargar los objetos.');
+			})
+	}
 
-    inventary = {
-        objects: [
-        {
-            id: 1,
-            name: 'laptop',
-            date_in: '13/02/19',
-            image: 'https://screenshotlayer.com/images/assets/placeholder.png',
-            donate: ''
-        },
-        {
-            id: 2,
-            name: 'laptop',
-            date_in: '13/02/19',
-            image: 'https://screenshotlayer.com/images/assets/placeholder.png',
-            donate: ''
-        },
-        {
-            id: 3,
-            name: 'laptop',
-            date_in: '13/02/19',
-            image: 'https://screenshotlayer.com/images/assets/placeholder.png',
-            donate: ''
-        },
-        {
-            id: 4,
-            name: 'laptop',
-            date_in: '13/02/19',
-            image: 'https://screenshotlayer.com/images/assets/placeholder.png',
-            donate: '' 
-        },
-        {
-            id: 5,
-            name: 'laptop',
-            date_in: '13/02/19',
-            image: 'https://screenshotlayer.com/images/assets/placeholder.png',
-            donate: ''   
-        },
-        {
-            id: 6,
-            name: 'laptop',
-            date_in: '13/02/19',
-            image: 'https://screenshotlayer.com/images/assets/placeholder.png',
-            donate: ''
-        },
-        {
-            id: 7,
-            name: 'laptop',
-            date_in: '13/02/19',
-            image: 'https://screenshotlayer.com/images/assets/placeholder.png',
-            donate: ''
-        },
-        {
-            id: 8,
-            name: 'laptop',
-            date_in: '13/02/19',
-            image: 'https://screenshotlayer.com/images/assets/placeholder.png',
-            donate: ''    
-        },
-        {
-            id: 9,
-            name: 'laptop',
-            date_in: '13/02/19',
-            image: 'https://screenshotlayer.com/images/assets/placeholder.png',
-            donate: ''
-        },
-        {
-            id: 10,
-            name: 'Iphone 7',
-            date_in: '13/02/19',
-            image: 'https://screenshotlayer.com/images/assets/placeholder.png',
-            donate: ''
-        },
-        {
-            id: 11,
-            name: 'laptop',
-            date_in: '13/02/19',
-            image: 'https://screenshotlayer.com/images/assets/placeholder.png',
-            donate: ''
-        },
-        {
-            id: 12,
-            name: 'laptop',
-            date_in: '13/02/19',
-            image: 'https://screenshotlayer.com/images/assets/placeholder.png',
-            donate: ''
-        },
-        {
-            id: 13,
-            name: 'laptop',
-            date_in: '13/02/19',
-            image: 'https://screenshotlayer.com/images/assets/placeholder.png',
-            donate: '' 
-        },
-        {
-            id: 14,
-            name: 'laptop',
-            date_in: '13/02/19',
-            image: 'https://screenshotlayer.com/images/assets/placeholder.png',
-            donate: ''
-        }
-        ],
+	loadNext() {
+		const page = this.state.page + 1;
+		const that = this;
+		api.objetos.listDonate(page)
+			.then(response => {
+				const { objetos } = response.data;
+				that.setState({ objetos, page });
+			})
+			.catch(err => {
+				console.log(err);
+				alert('Error al cargar la iguiente pagina');
+			})
+	}
 
-        fields: [{
-        dataField: 'name',
-        text: 'Nombre',
-        style: {
-            width: '150px'
-        }
-        },
-        {
-        dataField: 'date_in',
-        text: 'Fecha Ingreso',
-        formatter: dateFormatter,style: {
-            width: '150px',
-        }
-        },
-        {
-        dataField: 'image',
-        text: 'Imagen',
-        align: 'center',
-        formatter: imageFormatter,style: {
-            width: '150px'
-        }
-        },
-        {
-            dataField: 'donate',
-            text: '',
-            align: 'center',
-            formatter: buttonFormatter,style: {
-                width: '150px',
-            }
-            }
-    ]
-    }
+	loadLast() {
+		const page = this.state.page - 1;
+		if (page >= 0) {
+			const that = this;
+			api.objetos.listDonate(page)
+				.then(response => {
+					const { objetos } = response.data;
+					that.setState({ objetos, page });
+				})
+				.catch(err => {
+					console.log(err);
+					alert('Error al cargar la iguiente pagina');
+				})
+		}
+	}
 
-  
-    render() {
-        return (
-        <div className="container-fluid">
-            <div className="row mt-3">
-            <div className="col-lg-12">
-                <div className="card">
-                <div className="card-header">
-                    <h5>Listado de objetos disponibles para donar</h5>
-                </div>
-                <div className="container" style={{ marginTop: 50 }}>    
-                <ToolkitProvider
-                    keyField='id'
-                    data={ this.inventary.objects }
-                    columns={ this.inventary.fields }
-                    search
-                >
-                {
-                    props => (
-                    <div>
-                        <h5> Filtrar: </h5>
-                        <SearchBar { ...props.searchProps } />&nbsp;
-                        <ClearSearchButton { ...props.searchProps } className="btn btn-light" />&nbsp;&nbsp;
-                        <button type="button" className="btn btn-primary" onClick={this.donarObjetos} style={{ float: 'right' }}>Donar Todos</button>
-                        <hr />
-                        <BootstrapTable 
-                        { ...props.baseProps } 
-                        striped
-                        hover
-                        pagination={ paginationFactory() }
-                        />
-                    </div>
-                    )
-                }
-                </ToolkitProvider> 
-                </div>
-                </div>
-            </div>
-            </div>
-        </div>
-        );
-    }
-    }
+	donarObjetos() {
+		const { objetos } = this.state;
+		const that = this;
+		const conf = confirm('Confirme la salida de los objetos.');
+		if (conf) {
+			const objetosIds = objetos.map(item => item.id);
+			api.objetos.donate({ objetos: objetosIds })
+				.then(() => {
+					alert('Todos los objetos de esta pagina han salido del inventario');
+					api.objetos.listDonate(0)
+						.then(response => {
+							const { objetos } = response.data;
+							that.setState({ objetos, page: 0 });
+						})
+						.catch(err => {
+							console.log(err)
+							alert('Error al cargar los objetos.');
+						})
+				})
+				.catch(err => {
+					console.log(err);
+					alert('Error al donar los objetos');
+				})
+		}
+	}
+
+	donarObjeto(id) {
+		const that = this;
+		const conf = confirm('Confirme la salida del objeto.');
+		if (conf) {
+			api.objetos.donate({ objetos: [id] })
+				.then(() => {
+					alert('El objeto ha salido del inventario');
+					api.objetos.listDonate(0)
+						.then(response => {
+							const { objetos } = response.data;
+							that.setState({ objetos, page: 0 });
+						})
+						.catch(err => {
+							console.log(err)
+							alert('Error al cargar los objetos.');
+						})
+				})
+				.catch(err => {
+					console.log(err);
+					alert('Error al donar los objetos');
+				})
+		}
+	}
+
+	imageFormatter(cell) {
+		return (
+			<img src={cell} height={'50'} alt='objeto' />
+		);
+	}
+
+	buttonFormatter(cell, row) {
+		const cb = () => this.donarObjeto(cell, row);
+		return (
+			<button type="button" className="btn btn-primary" onClick={cb}>Donar</button>
+		);
+	}
+
+	dateFormatter(cell) {
+		return moment(cell).format('DD/MM/YYYY');
+	}
+
+
+	render() {
+		const { page, objetos } = this.state;
+		const campos = [
+			{
+				dataField: 'nombre',
+				text: 'Nombre',
+				style: {
+					width: '150px'
+				}
+			},
+			{
+				dataField: 'fechaIngreso',
+				text: 'Fecha Ingreso',
+				formatter: this.dateFormatter,
+				style: {
+					width: '150px',
+				}
+			},
+			{
+				dataField: 'url',
+				text: 'Imagen',
+				align: 'center',
+				formatter: this.imageFormatter,
+				style: {
+					width: '150px'
+				}
+			},
+			{
+				dataField: 'id',
+				text: 'Acciones',
+				align: 'center',
+				formatter: this.buttonFormatter,
+				style: {
+					width: '150px',
+				}
+			}
+		];
+
+		return (
+			<div className="container-fluid">
+				<div className="row mt-3">
+					<div className="col-lg-12">
+						<div className="card">
+							<div className="card-header text-center">
+								<h5>
+									<button className="btn btn-info mr-5" style={{ float: 'left' }}
+										onClick={this.loadLast} disabled={page > 0 ? 'false' : 'true'}>Anterior</button>
+									<button className="btn btn-info" style={{ float: 'left' }} onClick={this.loadNext}>Siguiente</button>
+									<span>Listado de objetos disponibles para donar</span>
+									<button type="button" className="btn btn-primary" onClick={this.donarObjetos} style={{ float: 'right' }}>Donar Todos</button>
+								</h5>
+							</div>
+							<div className="container-fluid" style={{ marginTop: 25 }}>
+								<ToolkitProvider
+									keyField='id'
+									data={objetos}
+									columns={campos}
+									search
+								>
+									{
+										props => (
+											<BootstrapTable
+												{...props.baseProps}
+												classes="table table-hover text-center"
+											/>
+										)
+									}
+								</ToolkitProvider>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		);
+	}
+}
 
 export default ListaDonarObjetos;

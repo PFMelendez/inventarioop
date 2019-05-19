@@ -23,6 +23,8 @@ export default {
   },
   objetos: {
     create: params => axios.post('/objetos', params),
+    listDonate: () => axios.get('/objetos/donate'),
+    donate: params => axios.post('/objetos/donate', params)
   },
   estados: {
     list: () => axios.get('/estado'),

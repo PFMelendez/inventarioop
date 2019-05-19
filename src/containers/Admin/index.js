@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Route, Switch } from 'react-router';
 import { Link } from 'react-router-dom';
 import Styled from './index.styled';
-import Tags from '../Tags';
+// import Tags from '../Tags';
 import Usuarios from '../ListaUsuarios';
 import Usuario from '../Usuario';
 import Subcategorias from '../../components/Sub_categorias/Buscar_Subcategoria';
@@ -33,7 +33,7 @@ class Admin extends Component {
           </div>
           <div className='col-10'>
             <Switch location={location}>
-              <Route exact path="/admin/etiquetas" component={Tags} />
+              {/* <Route exact path="/admin/etiquetas" component={Tags} /> */}
               <Route exact path="/admin/usuarios/crear" component={Usuario} />
               <Route exact path="/admin/usuarios/:id" component={Usuario} />
               <Route exact path="/admin/usuarios" component={Usuarios} />
