@@ -7,6 +7,7 @@ import Login from './containers/Login';
 // import Tags from './containers/Tags';
 import Admin from './containers/Admin'
 import Objeto from './components/Objetos/FormularioCrearObjeto';
+import EditarObjeto from './components/Objetos/FormularioEditarObjeto';
 import ListaObjetos from './containers/ListaObjetos';
 
 // import DetalleObjeto from './containers/Objeto';
@@ -35,7 +36,7 @@ class App extends Component {
         <Navigation tipoUsuario={tipoUsuario} />
         <Switch location={location}>
           <Route exact path="/objetos/crear" component={Objeto} />
-          <Route exact path="/objetos/:id" component={Objeto} />
+          <Route exact path="/objetos/:id" component={EditarObjeto} />
           <Route exact path="/objetos" component={ListaObjetos} />
           {/* <Route exact path="/objetos/donar" component={ListaDonarObjetos} /> */}
           {/* <Route exact path="/usuario/crear" component={Usuario} /> */}

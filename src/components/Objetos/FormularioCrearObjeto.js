@@ -5,8 +5,8 @@ import helpers from '../../services/helpers';
 
 class FormularioCrearObejto extends Component {
 
-  constructor(args) {
-    super(args);
+  constructor(props) {
+    super(props);
     this.state = {
       usuario: '',
       subcategoria: 0,
@@ -147,6 +147,7 @@ class FormularioCrearObejto extends Component {
         lugarHallazgo,
         informacionAdicional: notas,
         subcategoria,
+        categoria,
         newTags,
         tags,
       };
@@ -271,7 +272,7 @@ class FormularioCrearObejto extends Component {
               <label htmlFor="option">Notas:</label>
             </div>
             <div className="col-6" >
-              <input type="text" className="form-control" id="opcion" name="notas" onChange={this.handleChange} value={notas} />
+              <textarea type="text" className="form-control" id="opcion" name="notas" onChange={this.handleChange} value={notas}></textarea>
             </div>
           </div>
           {/* <div className=" row pt-3">

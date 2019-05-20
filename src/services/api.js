@@ -32,7 +32,9 @@ export default {
     list: nombre => axios.get('/etiqueta', { params: { nombre } }),
   },
   objetos: {
+    get: id => axios.get(`/objetos/${id}`),
     create: params => axios.post('/objetos', params),
+    update: (id, params) => axios.put(`/objetos/${id}`, params),
     createWithPicture: async params => {
       const createParams = tofd({
         ...params,

@@ -13,7 +13,7 @@ export function* logIn({ payload }) {
 
     const sessionString = JSON.stringify({ user });
     yield call(ls.set, 'inventarioopSession', sessionString);
-    yield call(api.auth, user.id_usuarios);
+    yield call(api.auth, user.id);
     yield put(actions.setUser(user));
     yield put(actions.setStatus(true));
   } catch (err) {
@@ -29,7 +29,7 @@ export function* autoLogin() {
   const sessionString = yield call(ls.get, 'inventarioopSession');
   if (sessionString) {
     const { user } = JSON.parse(sessionString);
-    yield call(api.auth, user.id_usuarios);
+    yield call(api.auth, user.id);
     yield put(actions.setStatus(true));
     yield put(actions.setUser(user));
   } else {

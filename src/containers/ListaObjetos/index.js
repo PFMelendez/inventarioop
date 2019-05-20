@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { push } from 'connected-react-router'
+import { connect } from 'react-redux';
 import BootstrapTable from 'react-bootstrap-table-next';
 import ToolkitProvider from 'react-bootstrap-table2-toolkit';
 import moment from 'moment';
@@ -140,10 +142,19 @@ class ListaObjetos extends Component {
 		);
 	}
 
-	buttonFormatter = (cell, row) => {
+	editarObjeto = (id) => {
+		const { navigate } = this.props;
+		navigate(`/objetos/${id}`);
+	}
+
+	buttonFormatter(cell, row) {
 		const cb = () => this.liberarObjeto(cell, row);
+		const edit = () => this.editarObjeto(cell)
 		return (
-			<button type="button" className="btn btn-primary" onClick={cb}>Liberar</button>
+			[
+				<button type="button" className="btn btn-primary mr-5" onClick={cb}>Liberar</button>,
+				<button type="button" className="btn btn-primary" onClick={edit}>Detalle</button>
+			]
 		);
 	}
 
@@ -312,4 +323,6 @@ class ListaObjetos extends Component {
 	}
 }
 
-export default ListaObjetos;
+const dispatcher = dispatch => ({ navigate: url => dispatch(push(url)) })
+
+export default connect(null, dispatcher)(ListaObjetos);
