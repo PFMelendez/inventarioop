@@ -8,8 +8,10 @@ class FormularioCrearSubcategoria extends Component {
     this.state = {
       descripcion: '',
       categorias: [],
-      seccion: ''
+      seccion: '',
+      categoria: 0
     };
+    this.createSubcategory = this.createSubcategory.bind(this);
   }
 
   componentDidMount() {
@@ -33,14 +35,15 @@ class FormularioCrearSubcategoria extends Component {
   }
 
   createSubcategory() {
-    const { descripcion, categoria, seccion } = this.state;
-    if (!descripcion || !categoria || seccion) {
+    const { descripcion, categoria: rawRategoria, seccion } = this.state;
+    if (!descripcion || !rawRategoria || !seccion) {
       alert('Debe llenar todos los campos');
     } else {
+      const categoria = parseInt(rawRategoria, 10);
       const that = this;
       api.subcategorias.create({ descripcion, categoria, seccion })
         .then(response => {
-          alert(`Subcategoria creada correctamente ID: ${response.data.subcategoria.id}`);
+          alert(`Subcategoria creada correctamente ID: ${response.data.subCategoria.id}`);
           that.setState({
             descripcion: '',
             categoria: '',
@@ -64,7 +67,7 @@ class FormularioCrearSubcategoria extends Component {
         <div className="row pt-3">
           <div className="col-3">
             <div className="row">
-              <div clasName="col">
+              <div className="col">
                 <p>Nombre</p>
               </div>
             </div>
@@ -80,7 +83,7 @@ class FormularioCrearSubcategoria extends Component {
         <div className="row pt-3">
           <div className="col-3">
             <div className="row">
-              <div clasName="col">
+              <div className="col">
                 <p>Categoria</p>
               </div>
             </div>
@@ -88,8 +91,8 @@ class FormularioCrearSubcategoria extends Component {
           <div className="col-4">
             <div className="row">
               <div className="col">
-                <select className="form-control" id="opcion" name="categoria" onChange={this.handleCategoria} value={categoria}>
-                  <option value="">Seleccione...</option>
+                <select className="form-control" id="categoria" name="categoria" onChange={this.handleChange} value={categoria}>
+                  <option value="0">Seleccione...</option>
                   {categorias.map(item => <option key={`id_sub_categoria-${item.id}`} value={item.id}>{item.descripcion}</option>)}
                 </select>
               </div>
@@ -99,7 +102,7 @@ class FormularioCrearSubcategoria extends Component {
         <div className="row pt-3">
           <div className="col-3">
             <div className="row">
-              <div clasName="col">
+              <div className="col">
                 <p>Seccion</p>
               </div>
             </div>
@@ -113,7 +116,7 @@ class FormularioCrearSubcategoria extends Component {
           </div>
         </div>
         <div className="row pt-3" >
-          <button type="submit" className="btn btn-primary mb-2 mr-sm-2">Guardar Subcategoria</button>
+          <button type="submit" className="btn btn-primary mb-2 mr-sm-2" onClick={this.createSubcategory}>Crear Subcategoria</button>
         </div>
       </div>
     );
