@@ -21,11 +21,11 @@ class ListaDonarObjetos extends Component {
 			lastPage: false
 		};
 		this.loadObjects = this.loadObjects.bind(this);
-    this.handleApiErrors = this.handleApiErrors.bind(this);
+		this.handleApiErrors = this.handleApiErrors.bind(this);
 		this.loadNext = this.loadNext.bind(this);
 		this.loadLast = this.loadLast.bind(this);
-		this.donarObjetos = this.donarObjetos.bind(this);
-		this.donarObjeto = this.donarObjeto.bind(this);
+		this.liberarObjetos = this.liberarObjetos.bind(this);
+		this.liberarObjeto = this.liberarObjeto.bind(this);
 		this.buttonFormatter = this.buttonFormatter.bind(this);
 	}
 
@@ -37,31 +37,31 @@ class ListaDonarObjetos extends Component {
 	}
 
 	loadObjects(response, page) {
-    const { objetos } = response.data;
+		const { objetos } = response.data;
 
-    if (objetos.length === 0) {
-      const { objetos: oldObjects } = this.state;
+		if (objetos.length === 0) {
+			const { objetos: oldObjects } = this.state;
 
-      this.setState({ lastPage: true });
+			this.setState({ lastPage: true });
 
-      if (page === 0) {
-        this.setState({ objetos: [] });
-      }
+			if (page === 0) {
+				this.setState({ objetos: [] });
+			}
 
-      if (oldObjects.length > 0) {
-        alert('No hay mas objetos que cargar');
-      }
-    } else if (objetos.length < 10) {
-      this.setState({ objetos, lastPage: true, page });
-    } else {
-      this.setState({ objetos, page });
-    }
-  }
+			if (oldObjects.length > 0) {
+				alert('No hay mas objetos que cargar');
+			}
+		} else if (objetos.length < 10) {
+			this.setState({ objetos, lastPage: true, page });
+		} else {
+			this.setState({ objetos, page });
+		}
+	}
 
-  handleApiErrors(err) {
-    console.log(err);
-    alert('Hubo un error al cargar los objetos.');
-  }
+	handleApiErrors(err) {
+		console.log(err);
+		alert('Hubo un error al cargar los objetos.');
+	}
 
 	loadNext() {
 		const page = this.state.page + 1;
@@ -79,12 +79,12 @@ class ListaDonarObjetos extends Component {
 		}
 	}
 
-	donarObjetos() {
+	liberarObjetos() {
 		const { objetos } = this.state;
 		const conf = confirm('Confirme la salida de los objetos.');
 		if (conf) {
 			const objetosIds = objetos.map(item => item.id);
-			api.objetos.donate({ objetos: objetosIds })
+			api.objetos.release({ objetos: objetosIds })
 				.then(() => {
 					alert('Todos los objetos de esta pagina han salido del inventario');
 					api.objetos.listDonate(0)
@@ -93,16 +93,16 @@ class ListaDonarObjetos extends Component {
 				})
 				.catch(err => {
 					console.log(err);
-					alert('Error al donar los objetos');
+					alert('Error al liberar los objetos');
 				})
 		}
 	}
 
-	donarObjeto(id) {
+	liberarObjeto(id) {
 		const { page } = this.state;
 		const conf = confirm('Confirme la salida del objeto.');
 		if (conf) {
-			api.objetos.donate({ objetos: [id] })
+			api.objetos.release({ objetos: [id] })
 				.then(() => {
 					alert('El objeto ha salido del inventario');
 					api.objetos.listDonate(page)
@@ -111,7 +111,7 @@ class ListaDonarObjetos extends Component {
 				})
 				.catch(err => {
 					console.log(err);
-					alert('Error al donar los objetos');
+					alert('Error al liberar los objetos');
 				})
 		}
 	}
@@ -123,9 +123,9 @@ class ListaDonarObjetos extends Component {
 	}
 
 	buttonFormatter(cell, row) {
-		const cb = () => this.donarObjeto(cell, row);
+		const cb = () => this.liberarObjeto(cell, row);
 		return (
-			<button type="button" className="btn btn-primary" onClick={cb}>Donar</button>
+			<button type="button" className="btn btn-primary" onClick={cb}>liberar</button>
 		);
 	}
 
@@ -182,8 +182,8 @@ class ListaDonarObjetos extends Component {
 									<button className="btn btn-info mr-5" style={{ float: 'left' }}
 										onClick={this.loadLast} disabled={page > 0 ? 'false' : 'true'}>Anterior</button>
 									<button className="btn btn-info" style={{ float: 'left' }} onClick={this.loadNext}>Siguiente</button>
-									<span>Listado de objetos disponibles para donar</span>
-									<button type="button" className="btn btn-primary" onClick={this.donarObjetos} style={{ float: 'right' }}>Donar Todos</button>
+									<span>Listado de objetos disponibles para liberar</span>
+									<button type="button" className="btn btn-primary" onClick={this.liberarObjetos} style={{ float: 'right' }}>Liberar Todos</button>
 								</h5>
 							</div>
 							<div className="container-fluid" style={{ marginTop: 25 }}>

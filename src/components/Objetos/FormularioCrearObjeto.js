@@ -9,7 +9,7 @@ class FormularioCrearObejto extends Component {
     super(args);
     this.state = {
       usuario: '',
-      subCategoria: '',
+      subcategoria: 0,
       nombre: '',
       estado: '',
       tags: [],
@@ -18,11 +18,13 @@ class FormularioCrearObejto extends Component {
       notas: '',
       nombreNuevaEtiqueta: '',
       categorias: [],
-      subCategorias: [],
+      subcategorias: [],
       etiquetas: [],
       estados: [],
-      categoria: 0
+      categoria: 0,
+      foto: [],
     };
+    this.foto = React.createRef();
   }
 
   componentDidMount() {
@@ -47,13 +49,23 @@ class FormularioCrearObejto extends Component {
 
   handleCategoria = e => {
     const { value: categoria } = e.target;
-    this.setState({ categoria: e.target.value });
     const that = this;
-    api.subcategorias.list(categoria)
-      .then(response => {
-        const { subCategorias } = response.data;
-        that.setState({ subCategorias });
-      })
+    this.setState({ categoria });
+    if (parseInt(categoria) > 0) {
+      api.categorias.get(categoria)
+        .then(response => {
+          const { categoria: { Subcategorias: subcategorias } } = response.data;
+          that.setState({ subcategorias });
+        })
+        .catch(this.handleApiErrorCategorias);
+    } else {
+      this.setState({ subcategorias: [] });
+    }
+  }
+
+  handleApiErrorCategorias(err) {
+    console.log(err);
+    alert('Hubo un error al cargar categoria.');
   }
 
   handleSubCategoria = e => {
@@ -102,54 +114,65 @@ class FormularioCrearObejto extends Component {
     this.setState({ newTags: [...rawTags] });
   }
 
-  registrarObjeto = () => {
+  handleFile = e => {
+    this.setState({ foto: e.target.files });
+  }
+
+  registrarObjeto = e => {
+    e.preventDefault();
     const {
-      subCategoria,
+      subcategoria,
       estado,
       nombre,
       tags: tagObjects,
       newTags: rawNewTags,
       lugarHallazgo,
       notas,
+      categoria,
+      // foto
     } = this.state
-
-    const rawTags = tagObjects.map(item => item.id_etiqueta);
-
-    const tags = JSON.stringify(rawTags);
-    const newTags = JSON.stringify(rawNewTags);
-
-    const params = {
-      nombre,
-      estado,
-      lugar_hallazgo: lugarHallazgo,
-      informacion_adicional: notas,
-      subCategoria,
-      newTags,
-      tags
-    };
     const that = this;
 
-    api.objetos.create(params)
-      .then(response => {
-        alert(`Objeto Creado con exito: ${response.data.objeto.id_objetos}`);
-        that.setState({
-          usuario: '',
-          subCategoria: '',
-          nombre: '',
-          estado: '',
-          tags: [],
-          newTags: [],
-          lugarHallazgo: '',
-          notas: '',
-          nombreNuevaEtiqueta: '',
-          subCategorias: [],
-          etiquetas: [],
-          categoria: 0
-        });
-      })
-      .catch(err => {
-        console.log(err);
-      })
+    if (!nombre || !estado || !categoria || !subcategoria) {
+      alert('Nombre, Estado, Categoria y Subcategoria son campos requeridos, verifique haberlos llenado.');
+    } else {
+      const rawTags = tagObjects.map(item => item.id);
+
+      const tags = JSON.stringify(rawTags);
+      const newTags = JSON.stringify(rawNewTags);
+
+      let params = {
+        nombre,
+        estado,
+        lugarHallazgo,
+        informacionAdicional: notas,
+        subcategoria,
+        newTags,
+        tags,
+      };
+
+      api.objetos.create(params)
+        .then(response => {
+          alert(`Objeto Creado con exito: ${response.data.objeto.id}`);
+          that.setState({
+            usuario: '',
+            subCategoria: '',
+            nombre: '',
+            estado: '',
+            tags: [],
+            newTags: [],
+            lugarHallazgo: '',
+            notas: '',
+            nombreNuevaEtiqueta: '',
+            subCategorias: [],
+            etiquetas: [],
+            categoria: 0
+          });
+        })
+        .catch(err => {
+          console.log(err);
+        })
+    }
   }
 
   render() {
@@ -159,122 +182,121 @@ class FormularioCrearObejto extends Component {
       lugarHallazgo,
       notas,
       categorias,
-      subCategorias,
+      subcategorias,
       estados,
       etiquetas,
       nombre,
       nombreNuevaEtiqueta,
       tags,
       newTags,
-      subCategoria
+      subcategoria,
+      foto
     } = this.state;
+    console.log(this.state);
+
+    const photo = foto.length > 0 ? foto[0] : {};
 
     const { antibind } = helpers;
     return (
       <div className='container'>
-        <div className=" row pt-3">
-          <div className="col-3">
-            <label htmlFor="option">Llene los campos para agregar un objeto.</label>
-          </div>
-        </div>
-        <div className=" row pt-3">
-        </div>
-        <div className=" row pt-3">
-          <div className="col-3">
-            <label htmlFor="option">Nombre del Objeto</label>
-          </div>
-          <div className="col-6" >
-            <input type="text" className="form-control" id="nombre" name="nombre" onChange={this.handleChange} value={nombre} />
-          </div>
-        </div>
-        <div className=" row pt-3">
-          <div className="col-3">
-            <label htmlFor="option">¿Que tipo de objeto fue encontrado? :</label>
-          </div>
-          <div className="col-6" >
-            <select className="form-control" id="opcion" name="categoria" onChange={this.handleCategoria} value={categoria} >
-              <option value="">Seleccione...</option>
-              {categorias.map(item => <option key={`id_sub_categoria-${item.id}`} value={item.id}>{item.descripcion}</option>)}
-            </select>
-          </div>
-        </div>
-        <div className=" row pt-3">
-        </div>
-        <div className=" row pt-3">
-          <div className="col-3">
-            <label htmlFor="option">Subcategoria</label>
-          </div>
-          <div className="col-6" >
-            <select className="form-control" id="option" name="subCategoria" onChange={this.handleChange} value={subCategoria} >
-              <option value="">Seleccione...</option>
-              {subCategorias.map(item => <option key={`id_sub_categoria-${item.id}`} value={item.id}>{item.descripcion}</option>)}
-            </select>
-          </div>
-        </div>
-        <div className=" row pt-3">
-        </div>
-        <div className=" row pt-3">
-          <div className="col-3">
-            <label htmlFor="option">Estado del objeto :</label>
-          </div>
-          <div className="col-6" >
-            <select className="form-control" id="opcion" name="estado" onChange={this.handleChange} value={estado}>
-              <option value="">Seleccione...</option>
-              {estados.map(item => <option key={`id_estado-${item.id_estado}`} value={item.id_estado}>{item.descripcion}</option>)}
-            </select>
-          </div>
-        </div>
-        <div className=" row pt-3">
-          <div className="col-3">
-            <label>Etiquetas:</label>
-          </div>
-          <div className="col-6" >
-            <Combobox showMenu={(nombreNuevaEtiqueta.length > 3)} inputCb={this.handleNombreEtiqueta} selectCb={this.handleEtiquetas} options={etiquetas} val={nombreNuevaEtiqueta} placeholder='Etiquetas' />
-          </div>
-        </div>
-        <div className=" row pt-3">
-        </div>
-        <div className=" row pt-3">
-          <div className="col-9">
-            {tags.map((item, index) => <button type="button" className="btn btn-primary" onClick={antibind(this.deleteTag, index)}>{item.nombre_etiqueta}</button>)}
-            {newTags.map((item, index) => <button type="button" className="btn btn-primary" onClick={antibind(this.deleteNewTag, index)}>{item}</button>)}
-          </div>
-        </div>
-        <div className=" row pt-3">
-          <div className="col-3">
-            <label htmlFor="option">Lugar donde se encontro:</label>
-          </div>
-          <div className="col-6" >
-            <input type="text" className="form-control" id="opcion" name="lugarHallazgo" onChange={this.handleChange} value={lugarHallazgo} />
-          </div>
-        </div>
-        <div className=" row pt-3">
-          <div className="col-3">
-            <label htmlFor="option">Notas:</label>
-          </div>
-          <div className="col-6" >
-            <input type="text" className="form-control" id="opcion" name="notas" onChange={this.handleChange} value={notas} />
-          </div>
-        </div>
-        <div className=" row pt-3">
-          <div className="col-3">
-            <label htmlFor="imagen">Foto del Objeto:</label>
-          </div>
-          <div className="col-6" >
-            <div className="input-group">
-              <div className="custom-file">
-                <input type="file" className="custom-file-input" />
-                <label className="custom-file-label" />
-              </div>
+        <form onSubmit={this.registrarObjeto}>
+          <div className=" row pt-3">
+            <div className="col-3">
+              <label htmlFor="option">Nombre</label>
+            </div>
+            <div className="col-6" >
+              <input type="text" className="form-control" id="nombre" name="nombre" onChange={this.handleChange} value={nombre} />
             </div>
           </div>
-        </div>
-        <br />
-        <div className="row">
-          <div className="col-6" >
-            <button type="button" className="btn btn-primary" onClick={this.registrarObjeto}>Registrar Objeto</button>
+          <div className=" row pt-3">
+            <div className="col-3">
+              <label htmlFor="option">Categoria</label>
+            </div>
+            <div className="col-6" >
+              <select className="form-control" id="opcion" name="categoria" onChange={this.handleCategoria} value={categoria} >
+                <option value="">Seleccione...</option>
+                {categorias.map(item => <option key={`id-${item.id}`} value={item.id}>{item.descripcion}</option>)}
+              </select>
+            </div>
           </div>
-        </div>
+          <div className=" row pt-3">
+          </div>
+          <div className=" row pt-3">
+            <div className="col-3">
+              <label htmlFor="option">Subcategoria</label>
+            </div>
+            <div className="col-6" >
+              <select className="form-control" id="option" name="subcategoria" onChange={this.handleChange} value={subcategoria} >
+                <option value="">Seleccione...</option>
+                {subcategorias.map(item => <option key={`idSubcategoria-${item.id}`} value={item.id}>{item.descripcion}</option>)}
+              </select>
+            </div>
+          </div>
+          <div className=" row pt-3">
+          </div>
+          <div className=" row pt-3">
+            <div className="col-3">
+              <label htmlFor="option">Estado</label>
+            </div>
+            <div className="col-6" >
+              <select className="form-control" id="opcion" name="estado" onChange={this.handleChange} value={estado}>
+                <option value="">Seleccione...</option>
+                {estados.map(item => <option key={`idEstado-${item.id}`} value={item.id}>{item.descripcion}</option>)}
+              </select>
+            </div>
+          </div>
+          <div className=" row pt-3">
+            <div className="col-3">
+              <label>Etiquetas</label>
+            </div>
+            <div className="col-6" >
+              <Combobox showMenu={(nombreNuevaEtiqueta.length > 3)} inputCb={this.handleNombreEtiqueta} selectCb={this.handleEtiquetas} options={etiquetas} val={nombreNuevaEtiqueta} placeholder='Etiquetas' />
+            </div>
+          </div>
+          <div className=" row pt-3">
+          </div>
+          <div className=" row pt-3">
+            <div className="col-9">
+              {tags.map((item, index) => <button type="button" className="btn btn-primary" onClick={antibind(this.deleteTag, index)}>{item.nombreEtiqueta}</button>)}
+              {newTags.map((item, index) => <button type="button" className="btn btn-primary" onClick={antibind(this.deleteNewTag, index)}>{item}</button>)}
+            </div>
+          </div>
+          <div className=" row pt-3">
+            <div className="col-3">
+              <label htmlFor="option">Lugar de hallazgo</label>
+            </div>
+            <div className="col-6" >
+              <input type="text" className="form-control" id="opcion" name="lugarHallazgo" onChange={this.handleChange} value={lugarHallazgo} />
+            </div>
+          </div>
+          <div className=" row pt-3">
+            <div className="col-3">
+              <label htmlFor="option">Notas:</label>
+            </div>
+            <div className="col-6" >
+              <input type="text" className="form-control" id="opcion" name="notas" onChange={this.handleChange} value={notas} />
+            </div>
+          </div>
+          {/* <div className=" row pt-3">
+            <div className="col-3">
+              <label htmlFor="imagen">Foto</label>
+            </div>
+            <div className="col-6" >
+              <div className="input-group">
+                <div className="custom-file">
+                  <input type="file" className="custom-file-input" name='fotoObjeto' onChange={this.handleFile} multiple={false} />
+                  <label className="custom-file-label">{`${photo.name || ''}`}</label>
+                </div>
+              </div>
+            </div>
+          </div> */}
+          <br />
+          <div className="row">
+            <div className="col-6" >
+              <button type="submit" className="btn btn-primary">Registrar Objeto</button>
+            </div>
+          </div>
+        </form>
         <br />
       </div>
     );

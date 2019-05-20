@@ -64,7 +64,7 @@ export const Combobox = ({
                   index
                 )}
               >
-                {item.nombre_etiqueta}
+                {item.nombreEtiqueta}
               </OptionItem>
             ))}
             <OptionItem onClick={antibind(selectCb, -1)}>Crear Etiqueta</OptionItem>
@@ -74,4 +74,4 @@ export const Combobox = ({
     </ComboboxWrapper>
   );
 
-  export default Combobox;
+export default Combobox;
