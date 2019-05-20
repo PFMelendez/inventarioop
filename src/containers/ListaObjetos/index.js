@@ -224,14 +224,14 @@ class ListaObjetos extends Component {
 					width: '150px',
 				}
 			},
-			{
-				dataField: 'image',
-				text: 'Imagen',
-				align: 'center',
-				formatter: this.imageFormatter, style: {
-					width: '150px'
-				}
-			},
+			// {
+			// 	dataField: 'image',
+			// 	text: 'Imagen',
+			// 	align: 'center',
+			// 	formatter: this.imageFormatter, style: {
+			// 		width: '150px'
+			// 	}
+			// },
 			{
 				dataField: 'id',
 				text: 'acciones',

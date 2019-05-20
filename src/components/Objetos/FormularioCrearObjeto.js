@@ -190,11 +190,8 @@ class FormularioCrearObejto extends Component {
       tags,
       newTags,
       subcategoria,
-      foto
     } = this.state;
     console.log(this.state);
-
-    const photo = foto.length > 0 ? foto[0] : {};
 
     const { antibind } = helpers;
     return (

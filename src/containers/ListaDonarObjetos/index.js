@@ -152,15 +152,15 @@ class ListaDonarObjetos extends Component {
 					width: '150px',
 				}
 			},
-			{
-				dataField: 'url',
-				text: 'Imagen',
-				align: 'center',
-				formatter: this.imageFormatter,
-				style: {
-					width: '150px'
-				}
-			},
+			// {
+			// 	dataField: 'url',
+			// 	text: 'Imagen',
+			// 	align: 'center',
+			// 	formatter: this.imageFormatter,
+			// 	style: {
+			// 		width: '150px'
+			// 	}
+			// },
 			{
 				dataField: 'id',
 				text: 'Acciones',
