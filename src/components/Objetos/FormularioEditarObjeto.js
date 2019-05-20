@@ -23,7 +23,7 @@ class FormularioEditarObejto extends Component {
       etiquetas: [],
       estados: [],
       categoria: 0,
-      deletedAt: null,
+      fechaEgreso: null,
       UsuarioSalida: {},
     };
   }
@@ -45,7 +45,7 @@ class FormularioEditarObejto extends Component {
           informacionAdicional: notas,
           Etiquetas: tags,
           Categoria: { id: categoria },
-          deletedAt,
+          fechaEgreso,
           UsuarioSalida = {},
         } = response.data.objeto
         api.categorias.get(categoria)
@@ -62,7 +62,7 @@ class FormularioEditarObejto extends Component {
           notas,
           tags,
           categoria,
-          deletedAt,
+          fechaEgreso,
           UsuarioSalida
         });
       })
@@ -170,7 +170,7 @@ class FormularioEditarObejto extends Component {
             informacionAdicional: notas,
             Etiquetas: tags,
             Categoria: { id: categoria },
-            deletedAt,
+            fechaEgreso,
             UsuarioSalida = {},
           } = response.data.objetos[0];
           alert('El objeto ha salido del inventario');
@@ -188,7 +188,7 @@ class FormularioEditarObejto extends Component {
             notas,
             tags,
             categoria,
-            deletedAt,
+            fechaEgreso,
             UsuarioSalida
           });
         })
@@ -241,7 +241,7 @@ class FormularioEditarObejto extends Component {
             informacionAdicional: notas,
             Etiquetas: tags,
             Categoria: { id: categoria },
-            deletedAt,
+            fechaEgreso,
           } = response.data.objeto
           alert(`Objeto actualizado con exito: ${response.data.objeto.id}`);
           api.categorias.get(categoria)
@@ -258,7 +258,7 @@ class FormularioEditarObejto extends Component {
             notas,
             tags,
             categoria,
-            deletedAt,
+            fechaEgreso,
           });
         })
         .catch(err => {
@@ -282,11 +282,11 @@ class FormularioEditarObejto extends Component {
       tags,
       newTags,
       subcategoria,
-      deletedAt,
+      fechaEgreso,
     } = this.state;
     console.log(this.state);
 
-    const disabled = deletedAt !== null;
+    const disabled = fechaEgreso !== null;
     const { antibind } = helpers;
     return (
       <div className='container'>
