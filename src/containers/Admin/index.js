@@ -5,8 +5,11 @@ import Styled from './index.styled';
 // import Tags from '../Tags';
 import Usuarios from '../ListaUsuarios';
 import Usuario from '../Usuario';
+import ListaDonarObjetos from '../ListaDonarObjetos';
+import EditarUsuario from '../EditarUsuario';
 import Subcategorias from '../../components/Sub_categorias/Buscar_Subcategoria';
 import CrearSubCategoria from '../../components/Sub_categorias/Crear_Subcategoria';
+import EditarSubCategoria from '../../components/Sub_categorias/Editar_Subcategoria';
 class Admin extends Component {
   render() {
     const { location } = this.props;
@@ -15,10 +18,11 @@ class Admin extends Component {
         <div className='row'>
           <div className='col-2'>
             <Styled.SideBarWrapper>
-              {/* <div style={{ marginTop: '10px' }}>
+              <div style={{ marginTop: '10px' }}>
                 <p style={{ marginBottom: '0px' }}>Objetos</p>
-                <p><Link to="/admin/etiquetas">Etiquetas</Link></p>
-              </div> */}
+                <p><Link to="/admin/objetos/liberar">Lista Liberar Objetos</Link></p>
+                {/* <p><Link to="/admin/etiquetas">Etiquetas</Link></p> */}
+              </div>
               <div style={{ marginTop: '10px' }}>
                 <p style={{ marginBottom: '0px' }}>Usuarios</p>
                 <p style={{ marginBottom: '0px' }}><Link to="/admin/usuarios">Listar Usuarios</Link></p>
@@ -34,11 +38,12 @@ class Admin extends Component {
           <div className='col-10'>
             <Switch location={location}>
               {/* <Route exact path="/admin/etiquetas" component={Tags} /> */}
+              <Route exact path="/admin/objetos/liberar" component={ListaDonarObjetos} />
               <Route exact path="/admin/usuarios/crear" component={Usuario} />
-              <Route exact path="/admin/usuarios/:id" component={Usuario} />
+              <Route exact path="/admin/usuarios/:id" component={EditarUsuario} />
               <Route exact path="/admin/usuarios" component={Usuarios} />
               <Route exact path="/admin/subcategorias/crear" component={CrearSubCategoria} />
-              <Route exact path="/admin/subcategorias/:id" component={CrearSubCategoria} />
+              <Route exact path="/admin/subcategorias/:id" component={EditarSubCategoria} />
               <Route exact path="/admin/subcategorias" component={Subcategorias} />
               <Route exact path='/admin' component={Usuarios} />
             </Switch>

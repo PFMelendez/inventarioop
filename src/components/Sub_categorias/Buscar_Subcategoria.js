@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { push } from 'connected-react-router'
+import { connect } from 'react-redux';
 import { MainRow, FilterWrapper, TableWrapper } from './styled';
 import api from '../../services/api';
 import helpers from '../../services/helpers';
@@ -161,7 +163,7 @@ class TablaBusqudaSubcategorias extends Component {
                     <td>{item.Categoria.descripcion}</td>
                     <td>{`${item.Categoria.estante}-${item.seccion}`}</td>
                     <td>
-                      {/* <button type="button" className="btn btn-primary mb-2 mr-sm-2" onClick={antibind(this.editSubcategory, item.id)}>Editar</button> */}
+                      <button type="button" className="btn btn-primary mb-2 mr-sm-2" onClick={antibind(this.editSubcategory, item.id)}>Editar</button>
                       <button type="actualizar" className="btn btn-danger mb-2 mr-sm-2" onClick={antibind(this.deleteSubcategory, item.id)}>Eliminar</button>
                     </td>
                   </tr>
@@ -175,4 +177,6 @@ class TablaBusqudaSubcategorias extends Component {
   }
 }
 
-export default TablaBusqudaSubcategorias;
+const dispatcher = dispatch => ({ navigate: url => dispatch(push(url)) })
+
+export default connect(null, dispatcher)(TablaBusqudaSubcategorias);

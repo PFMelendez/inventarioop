@@ -7,7 +7,7 @@ import loginActions from '../../containers/Login/actions';
 
 class Navigation extends Component {
   render() {
-    const { triggerLogout } = this.props;
+    const { triggerLogout, tipoUsuario } = this.props;
     return (
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         {/* <Link className="navbar-brand" to="/">Menú</Link> */}
@@ -17,14 +17,11 @@ class Navigation extends Component {
               <Link className="navbar-brand" to="/objetos">Lista de Objetos</Link>
             </li>
             <li class="nav-item">
-              <Link className="navbar-brand" to="/donar/objetos">Objetos a Donar</Link>
-            </li>
-            <li class="nav-item">
               <Link className="navbar-brand" to="/objetos/crear">Registrar Objeto</Link>
             </li>
-            <li className="nav-item">
+            {tipoUsuario === 'admin' && <li className="nav-item">
               <Link className="navbar-brand" to="/admin">Admin</Link>
-            </li>
+            </li>}
             <li className="nav-item">
               <button className="btn btn-danger" onClick={triggerLogout}>Cerrar Sesión</button>
             </li>

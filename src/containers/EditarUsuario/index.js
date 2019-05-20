@@ -5,6 +5,7 @@ class Usuario extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      id: props.match.params.id,
       correo: '',
       contrasena: '',
       confirmarContrasena: '',
@@ -15,11 +16,35 @@ class Usuario extends Component {
       tiposUsuarios: [],
     };
     this.handleInputs = this.handleInputs.bind(this);
-    this.crearUsuario = this.crearUsuario.bind(this);
+    this.editarUsuario = this.editarUsuario.bind(this);
   }
 
   componentDidMount() {
+    const { match: {
+      params: { id }
+    } } = this.props;
     const that = this;
+    api.usuarios.get(id)
+      .then(response => {
+        const {
+          correo,
+          nombre,
+          apellidos,
+          nombreUsuario,
+          TipoUsuario: { id: tipoUsuario }
+        } = response.data.usuario;
+        that.setState({
+          correo,
+          nombre,
+          apellidos,
+          nombreUsuario,
+          tipoUsuario
+        });
+      })
+      .catch(err => {
+        console.log(err);
+        alert('Hubo un error al cargar el usuario');
+      });
     api.tiposUsuarios.list()
       .then(({ data }) => {
         const { tiposUsuarios } = data;
@@ -35,49 +60,55 @@ class Usuario extends Component {
     this.setState({ [name]: value });
   }
 
-  crearUsuario() {
+  editarUsuario() {
     const {
-      correo,
+      id,
       contrasena,
       confirmarContrasena,
-      nombre,
-      apellidos,
-      nombreUsuario,
-      tipoUsuario,
     } = this.state;
-    if (!correo || !contrasena || !confirmarContrasena || !nombre || !apellidos || !nombreUsuario || !tipoUsuario) {
-      alert('Debe llenar todos los cmapos');
-    } else {
-      if (contrasena !== confirmarContrasena) {
-        alert('Las contrasenas deben ser iguales');
-        return;
-      }
-      const that = this;
-      api.usuarios.create({
-        correo,
-        contrasena,
-        nombre,
-        apellidos,
-        nombreUsuario,
-        tipoUsuario,
-      })
-        .then(response => {
-          alert(`Usuario creado correctamente. ID: ${response.data.usuario.id}`);
-          that.setState({
-            correo: '',
-            contrasena: '',
-            confirmarContrasena: '',
-            nombre: '',
-            apellidos: '',
-            nombreUsuario: '',
-            tipoUsuario: 0,
-          });
-        })
-        .catch(err => {
-          console.log(err);
-          alert('Ocurrio un problema creando el usuario');
-        })
+    const that = this;
+    let params = {};
+
+
+    if (contrasena && contrasena !== confirmarContrasena) {
+      alert('Las contrasenas deben ser iguales');
+      return;
     }
+
+    Object.keys(this.state).forEach(item => {
+      if (that.state[item])
+        params[item] = that.state[item];
+    })
+
+    if (params.confirmarContrasena)
+      delete params.confirmarContrasena
+
+    api.usuarios.update(id, params)
+      .then(response => {
+        const {
+          usuarios: {
+            correo,
+            nombre,
+            apellidos,
+            nombreUsuario,
+            tipoUsuario
+          }
+        } = response.data;
+        alert(`Usuario editado correctamente. ID: ${response.data.usuarios.id}`);
+        that.setState({
+          correo,
+          contrasena: '',
+          confirmarContrasena: '',
+          nombre,
+          apellidos,
+          nombreUsuario,
+          tipoUsuario,
+        });
+      })
+      .catch(err => {
+        console.log(err);
+        alert('Ocurrio un problema creando el usuario');
+      })
   }
 
   render() {
@@ -145,9 +176,9 @@ class Usuario extends Component {
                         Tipo usuario
                     </td>
                       <td>
-                        <select className='custom-select' name="tipoUsuario" value={tipoUsuario} onChange={this.handleInputs} >
+                        <select className='custom-select' name="tipoUsuario" disabled value={tipoUsuario} onChange={this.handleInputs} >
                           <option value="">Seleccione...</option>
-                          {tiposUsuarios.map(item => <option value={item.id}>{item.display}</option>)}
+                          {tiposUsuarios.map(item => <option value={item.id}>{item.nombre}</option>)}
                         </select>
                       </td>
                     </tr>
@@ -184,7 +215,7 @@ class Usuario extends Component {
                       </td>
                     </tr> */}
                     <tr>
-                      <td><button className="btn btn-primary" type="button" onClick={this.crearUsuario}>Crear usuario</button></td>
+                      <td><button className="btn btn-primary" type="button" onClick={this.editarUsuario}>Crear usuario</button></td>
                       <td><hr /></td>
                     </tr>
                   </tbody>

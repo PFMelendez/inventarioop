@@ -12,8 +12,10 @@ export default {
   login: params => axios.post('/usuarios/login', params),
   usuarios: {
     list: page => axios.get('/usuarios', { params: { page } }),
+    get: id => axios.get(`/usuarios/${id}`),
     delete: id => axios.delete(`/usuarios/${id}`),
     create: params => axios.post('/usuarios', params),
+    update: (id, params) => axios.put(`/usuarios/${id}`, params),
   },
   categorias: {
     list: () => axios.get('/categoria'),
@@ -22,7 +24,9 @@ export default {
   subcategorias: {
     list: (page, categoria) => axios.get(`/subcategoria`, { params: { page, categoria } }),
     create: params => axios.post('/subcategoria', params),
-    delete: id => axios.delete(`/subcategoria/${id}`)
+    delete: id => axios.delete(`/subcategoria/${id}`),
+    get: id => axios.get(`/subcategoria/${id}`),
+    update: (id, params) => axios.put(`/subcategoria/${id}`, params),
   },
   etiquetas: {
     list: nombre => axios.get('/etiqueta', { params: { nombre } }),
