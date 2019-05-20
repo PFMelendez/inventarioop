@@ -44,11 +44,13 @@ export const Combobox = ({
   inputCb,
   val,
   placeholder,
+  disabled
 }) => (
     <ComboboxWrapper>
       <input
         type="text"
         className="form-control"
+        disabled={disabled}
         placeholder={placeholder}
         value={val}
         onChange={inputCb}

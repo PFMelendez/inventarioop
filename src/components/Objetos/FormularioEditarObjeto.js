@@ -340,7 +340,7 @@ class FormularioEditarObejto extends Component {
             <label>Etiquetas</label>
           </div>
           <div className="col-6" >
-            <Combobox showMenu={(nombreNuevaEtiqueta.length > 3)} inputCb={this.handleNombreEtiqueta} selectCb={this.handleEtiquetas} options={etiquetas} val={nombreNuevaEtiqueta} placeholder='Etiquetas' />
+            <Combobox showMenu={(nombreNuevaEtiqueta.length > 3)} disabled={disabled} inputCb={this.handleNombreEtiqueta} selectCb={this.handleEtiquetas} options={etiquetas} val={nombreNuevaEtiqueta} placeholder='Etiquetas' />
           </div>
         </div>
         <div className=" row pt-3">
